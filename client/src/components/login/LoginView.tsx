@@ -1,5 +1,5 @@
 "use client";
-import "./LoginView.css";
+import "../../styles/login/LoginView.css";
 
 interface LoginViewProps {
   username: string;

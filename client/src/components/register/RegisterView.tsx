@@ -1,5 +1,5 @@
 "use client";
-import "./RegisterView.css";
+import "../../styles/register/RegisterView.css";
 
 interface RegisterViewProps {
   username: string;
