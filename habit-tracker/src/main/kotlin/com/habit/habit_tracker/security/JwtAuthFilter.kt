@@ -30,8 +30,12 @@ class JwtAuthFilter(
             return
         }
 
+        println("AUTH HEADER: ${request.getHeader("Authorization")}")
+
         val jwt = authHeader.substringAfter("Bearer ")
         val username = jwtService.extractUsername(jwt)
+
+        println("USERNAME: $username")
 
         if (username != null && SecurityContextHolder.getContext().authentication == null) {
             val userDetails = userDetailsService.loadUserByUsername(username)
@@ -44,6 +48,7 @@ class JwtAuthFilter(
                 )
                 authToken.details = WebAuthenticationDetailsSource().buildDetails(request)
                 SecurityContextHolder.getContext().authentication = authToken
+                println("TOKEN VALID")
             }
         }
 
