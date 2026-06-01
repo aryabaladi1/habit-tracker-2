@@ -3,6 +3,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import ProfilePage from './pages/ProfilePage';
+import HabitsPage from './pages/HabitsPage';
 
 import { useAuth } from './context/AuthContext';
 
@@ -18,6 +19,7 @@ function App() {
 
         <Route path="/dashboard" element={ isAuthenticated ? <DashboardPage /> : <Navigate to="/login" replace /> }/>
         <Route path="/profile" element={ isAuthenticated ? <ProfilePage /> : <Navigate to="/login" replace /> }/>
+        <Route path="/habits" element={ isAuthenticated ? <HabitsPage /> : <Navigate to="/login" replace /> }/>
       </Routes>
     </div>
   );
