@@ -164,3 +164,18 @@ margin-top: 1rem;
 color: #9ca3af;
 font-size: 0.85rem;
 }
+
+.field-error {
+    color: #ef4444;
+    
+    font-size: 0.9rem;
+    
+    margin-top: -0.5rem;
+    }
+    
+    .input-error {
+    border-color: #ef4444 !important;
+    
+    box-shadow:
+      0 0 6px rgba(239, 68, 68, 0.3);
+    }

@@ -17,6 +17,9 @@ export default function HabitsPage() {
   const [creating, setCreating] = useState(false);
 
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<
+    Record<string, string>
+  >({});
 
   useEffect(() => {
     fetchHabits();
@@ -38,36 +41,53 @@ export default function HabitsPage() {
     e: React.FormEvent
   ) {
     e.preventDefault();
-
-    if (!name.trim()) {
-      setError("Habit name is required.");
-      return;
-    }
-
+  
+    setError("");
+    setFieldErrors({});
+  
     try {
+  
       setCreating(true);
-      setError("");
-
+  
       const newHabit = await createHabit({
         name,
         description,
       });
-
+  
       setHabits((prev) => [
         newHabit,
         ...prev,
       ]);
-
+  
       setName("");
       setDescription("");
-
+  
     } catch (err: any) {
-      setError(
-        err.response?.data?.message
-        || "Failed to create habit."
-      );
+  
+      const data = err.response?.data;
+  
+      if (
+        data &&
+        typeof data === "object" &&
+        !data.message
+      ) {
+  
+        setFieldErrors(
+          data as Record<string, string>
+        );
+  
+      } else {
+  
+        setError(
+          data?.message ||
+          "Failed to create habit."
+        );
+      }
+  
     } finally {
+  
       setCreating(false);
+  
     }
   }
 
@@ -89,22 +109,54 @@ export default function HabitsPage() {
           className="habit-form"
         >
 
-          <input
-            type="text"
-            placeholder="Habit name"
-            value={name}
-            onChange={(e) =>
-              setName(e.target.value)
-            }
-          />
+        <input
+          type="text"
+          placeholder="Habit name"
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
 
-          <textarea
-            placeholder="Description (optional)"
-            value={description}
-            onChange={(e) =>
-              setDescription(e.target.value)
-            }
-          />
+            setFieldErrors((prev) => ({
+              ...prev,
+              name: "",
+            }));
+          }}
+          className={
+            fieldErrors.name
+              ? "input-error"
+              : ""
+          }
+        />
+
+        {fieldErrors.name && (
+          <p className="field-error">
+            {fieldErrors.name}
+          </p>
+        )}
+
+        <textarea
+          placeholder="Description (optional)"
+          value={description}
+          onChange={(e) => {
+            setDescription(e.target.value);
+
+            setFieldErrors((prev) => ({
+              ...prev,
+              description: "",
+            }));
+          }}
+          className={
+            fieldErrors.description
+              ? "input-error"
+              : ""
+          }
+        />
+
+        {fieldErrors.description && (
+          <p className="field-error">
+            {fieldErrors.description}
+          </p>
+        )}
 
           {error && (
             <p className="habit-error">
