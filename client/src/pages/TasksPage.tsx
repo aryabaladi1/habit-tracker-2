@@ -24,6 +24,9 @@ export default function TasksPage() {
   const [dueDate, setDueDate] = useState("");
 
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<
+    Record<string, string>
+  >({});
 
   async function fetchTasks() {
     try {
@@ -42,28 +45,53 @@ export default function TasksPage() {
     e: React.FormEvent
   ) {
     e.preventDefault();
-
+  
     setError("");
-
+    setFieldErrors({});
+  
     try {
-    const created = await createTask({
+  
+      const created = await createTask({
         name,
         description,
         difficulty,
         dueDate: `${dueDate}T00:00:00`,
-    });
-
-      setTasks((prev) => [created, ...prev]);
-
+      });
+  
+      setTasks((prev) => [
+        created,
+        ...prev
+      ]);
+  
       setName("");
       setDescription("");
       setDueDate("");
-
-    } catch (err: any) {
-      setError(
-        err.response?.data?.message ||
-        "Failed to create task"
+  
+      setDifficulty(
+        TaskDifficulty.MEDIUM
       );
+  
+    } catch (err: any) {
+  
+      const data = err.response?.data;
+  
+      if (
+        data &&
+        typeof data === "object" &&
+        !data.message
+      ) {
+  
+        setFieldErrors(
+          data as Record<string, string>
+        );
+  
+      } else {
+  
+        setError(
+          data?.message ||
+          "Failed to create task"
+        );
+      }
     }
   }
 
@@ -83,37 +111,115 @@ export default function TasksPage() {
           type="text"
           placeholder="Task name"
           value={name}
-          onChange={(e) =>
-            setName(e.target.value)
+          onChange={(e) => {
+
+            setName(e.target.value);
+
+            setFieldErrors((prev) => ({
+              ...prev,
+              name: "",
+            }));
+          }}
+          className={
+            fieldErrors.name
+              ? "input-error"
+              : ""
           }
         />
+
+        {fieldErrors.name && (
+          <p className="field-error">
+            {fieldErrors.name}
+          </p>
+        )}
 
         <textarea
           placeholder="Description"
           value={description}
-          onChange={(e) =>
-            setDescription(e.target.value)
+          onChange={(e) => {
+
+            setDescription(e.target.value);
+
+            setFieldErrors((prev) => ({
+              ...prev,
+              description: "",
+            }));
+          }}
+          className={
+            fieldErrors.description
+              ? "input-error"
+              : ""
           }
         />
 
+        {fieldErrors.description && (
+          <p className="field-error">
+            {fieldErrors.description}
+          </p>
+        )}
+
         <select
-            value={difficulty}
-            onChange={(e) =>
-                setDifficulty(e.target.value as TaskDifficulty)
-            }
-            >
-            <option value={TaskDifficulty.EASY}>Easy</option>
-            <option value={TaskDifficulty.MEDIUM}>Medium</option>
-            <option value={TaskDifficulty.HARD}>Hard</option>
+          value={difficulty}
+          onChange={(e) => {
+
+            setDifficulty(
+              e.target.value as TaskDifficulty
+            );
+
+            setFieldErrors((prev) => ({
+              ...prev,
+              difficulty: "",
+            }));
+          }}
+          className={
+            fieldErrors.difficulty
+              ? "input-error"
+              : ""
+          }
+        >
+          <option value={TaskDifficulty.EASY}>
+            Easy
+          </option>
+
+          <option value={TaskDifficulty.MEDIUM}>
+            Medium
+          </option>
+
+          <option value={TaskDifficulty.HARD}>
+            Hard
+          </option>
         </select>
+
+        {fieldErrors.difficulty && (
+          <p className="field-error">
+            {fieldErrors.difficulty}
+          </p>
+        )}
 
         <input
           type="date"
           value={dueDate}
-          onChange={(e) =>
-            setDueDate(e.target.value)
+          onChange={(e) => {
+
+            setDueDate(e.target.value);
+
+            setFieldErrors((prev) => ({
+              ...prev,
+              dueDate: "",
+            }));
+          }}
+          className={
+            fieldErrors.dueDate
+              ? "input-error"
+              : ""
           }
         />
+
+        {fieldErrors.dueDate && (
+          <p className="field-error">
+            {fieldErrors.dueDate}
+          </p>
+        )}
 
         {error && (
           <p className="task-error">
