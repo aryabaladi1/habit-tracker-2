@@ -1,5 +1,7 @@
 package com.habit.habit_tracker.security
 
+import io.jsonwebtoken.ExpiredJwtException
+import io.jsonwebtoken.JwtException
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletException
 import jakarta.servlet.http.HttpServletRequest
@@ -24,34 +26,68 @@ class JwtAuthFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
+
         val authHeader = request.getHeader("Authorization")
+
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response)
             return
         }
 
-        println("AUTH HEADER: ${request.getHeader("Authorization")}")
+        try {
 
-        val jwt = authHeader.substringAfter("Bearer ")
-        val username = jwtService.extractUsername(jwt)
+            val jwt = authHeader.substringAfter("Bearer ")
 
-        println("USERNAME: $username")
+            val username = jwtService.extractUsername(jwt)
 
-        if (username != null && SecurityContextHolder.getContext().authentication == null) {
-            val userDetails = userDetailsService.loadUserByUsername(username)
+            if (
+                username != null &&
+                SecurityContextHolder.getContext().authentication == null
+            ) {
 
-            if (jwtService.isTokenValid(jwt, userDetails)) {
-                val authToken = UsernamePasswordAuthenticationToken(
-                    userDetails,
-                    null,
-                    userDetails.authorities
-                )
-                authToken.details = WebAuthenticationDetailsSource().buildDetails(request)
-                SecurityContextHolder.getContext().authentication = authToken
-                println("TOKEN VALID")
+                val userDetails =
+                    userDetailsService.loadUserByUsername(username)
+
+                if (jwtService.isTokenValid(jwt, userDetails)) {
+
+                    val authToken =
+                        UsernamePasswordAuthenticationToken(
+                            userDetails,
+                            null,
+                            userDetails.authorities
+                        )
+
+                    authToken.details =
+                        WebAuthenticationDetailsSource()
+                            .buildDetails(request)
+
+                    SecurityContextHolder
+                        .getContext()
+                        .authentication = authToken
+                }
             }
-        }
 
-        filterChain.doFilter(request, response)
+            filterChain.doFilter(request, response)
+
+        } catch (e: ExpiredJwtException) {
+
+            response.status = HttpServletResponse.SC_UNAUTHORIZED
+
+            response.contentType = "application/json"
+
+            response.writer.write(
+                """{"message":"JWT expired"}"""
+            )
+
+        } catch (e: JwtException) {
+
+            response.status = HttpServletResponse.SC_UNAUTHORIZED
+
+            response.contentType = "application/json"
+
+            response.writer.write(
+                """{"message":"Invalid JWT"}"""
+            )
+        }
     }
 }
