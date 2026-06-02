@@ -4,9 +4,10 @@ import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import ProfilePage from './pages/ProfilePage';
 import HabitsPage from './pages/HabitsPage';
+import TasksPage from './pages/TasksPage';
+import WeeksPage from './pages/WeeksPage';
 
 import { useAuth } from './context/AuthContext';
-import TasksPage from './pages/TasksPage';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/profile" element={ isAuthenticated ? <ProfilePage /> : <Navigate to="/login" replace /> }/>
         <Route path="/habits" element={ isAuthenticated ? <HabitsPage /> : <Navigate to="/login" replace /> }/>
         <Route path="/tasks" element={ isAuthenticated ? <TasksPage /> : <Navigate to="/login" replace /> }/>
+        <Route path="/weeks" element={ isAuthenticated ? <WeeksPage  /> : <Navigate to="/login" replace /> }/>
       </Routes>
     </div>
   );

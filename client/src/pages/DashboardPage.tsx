@@ -36,7 +36,7 @@ return (
     <Link to="/profile" className="profile-circle">
         {firstName.charAt(0).toUpperCase()}
     </Link>
-        <Link to="/week">Week</Link>
+        <Link to="/weeks">Week</Link>
         <Link to="/habits">Habits</Link>
         <Link to="/tasks">Tasks</Link>
 
@@ -55,7 +55,7 @@ return (
     </p>
 
     <div className="dashboard-cards">
-        <Link to="/week" className="dashboard-card">
+        <Link to="/weeks" className="dashboard-card">
         Open Weekly Tracker
         </Link>
 
