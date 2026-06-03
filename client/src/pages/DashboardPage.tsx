@@ -58,14 +58,6 @@ return (
         <Link to="/weeks" className="dashboard-card">
         Open Weekly Tracker
         </Link>
-
-        <Link to="/habits" className="dashboard-card">
-        Manage Habits
-        </Link>
-
-        <Link to="/tasks" className="dashboard-card">
-        View Tasks
-        </Link>
     </div>
     </main>
 </div>
