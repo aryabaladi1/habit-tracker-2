@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size
 import java.time.LocalDateTime
 import com.habit.habit_tracker.enums.TaskStatus
 import com.habit.habit_tracker.enums.TaskDifficulty
+import java.time.LocalDate
 
 
 @Entity
@@ -37,8 +38,8 @@ data class Task(
     @Column(name = "difficulty")
     var difficulty: TaskDifficulty,
 
-    @Column(name = "due_date", nullable = false)
-    val dueDate: LocalDateTime,
+    @Column(name = "due_date")
+    val dueDate: LocalDate? = null,
 
     @Column(name = "created_at", updatable = false, nullable = false)
     var createdAt: LocalDateTime? = null

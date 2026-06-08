@@ -29,11 +29,11 @@ class TaskService(
 
         return taskRepository.save(
             Task(
-                name = request.name,
+                name = request.name!!,
                 description = request.description,
                 user = user,
                 dueDate = request.dueDate,
-                difficulty = request.difficulty
+                difficulty = request.difficulty!!
             )
         )
     }
