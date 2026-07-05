@@ -7,6 +7,10 @@ import {
 
 import type { TaskResponse } from "../types/dto/task/response/TaskResponse";
 
+import { AxiosError } from "axios";
+
+import type { ApiErrorResponse } from "../types/ApiErrorResponse";
+
 import { TaskDifficulty } from "../types/enums/TaskDifficulty";
 
 import "../styles/tasks/TasksPage.css";
@@ -49,13 +53,26 @@ export default function TasksPage() {
     setError("");
     setFieldErrors({});
   
+    const errors: Record<string, string> = {};
+  
+    if (!name.trim()) {
+      errors.name = "Task name cannot be empty";
+    }
+  
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      return;
+    }
+  
     try {
   
       const created = await createTask({
         name,
         description,
         difficulty,
-        dueDate: `${dueDate}T00:00:00`,
+        dueDate: dueDate
+          ? `${dueDate}T00:00:00`
+          : null,
       });
   
       setTasks((prev) => [
@@ -66,31 +83,23 @@ export default function TasksPage() {
       setName("");
       setDescription("");
       setDueDate("");
+      setDifficulty(TaskDifficulty.MEDIUM);
   
-      setDifficulty(
-        TaskDifficulty.MEDIUM
-      );
+    } catch (err) {
   
-    } catch (err: any) {
-  
-      const data = err.response?.data;
-  
-      if (
-        data &&
-        typeof data === "object" &&
-        !data.message
-      ) {
-  
-        setFieldErrors(
-          data as Record<string, string>
-        );
-  
-      } else {
-  
-        setError(
-          data?.message ||
-          "Failed to create task"
-        );
+      const error = err as AxiosError<ApiErrorResponse>;
+      const data = error.response?.data;
+
+      if (!data) {
+        setError("Failed to create task");
+        return;
+      }
+
+      if (data.errors && Object.keys(data.errors).length > 0) {
+        setFieldErrors(data.errors);
+        setError("");
+      } else {  
+        setError(data.message);
       }
     }
   }

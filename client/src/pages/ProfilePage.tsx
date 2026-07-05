@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { getUserDetails, updateUserDetails } from "../api/userService";
+import { AxiosError } from "axios";
+import type { ApiErrorResponse } from "../types/ApiErrorResponse";
 
 import type { UserResponse } from "../types/dto/user/response/UserResponse";
 
@@ -42,9 +44,21 @@ export default function ProfilePage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    setSaving(true);
     setError("");
     setSuccess("");
+
+    const errors: string[] = [];
+
+    if (!username.trim()) {
+      errors.push("Username cannot be empty");
+    }
+
+    if (errors.length > 0) {
+      setError(errors.join(", "));
+      return;
+    }
+
+    setSaving(true);
 
     try {
       const updatedUser = await updateUserDetails({
@@ -56,10 +70,22 @@ export default function ProfilePage() {
       setUser(updatedUser);
 
       setSuccess("Profile updated successfully.");
-    } catch (err: any) {
-      setError(
-        err.response?.data?.message || "Failed to update profile."
-      );
+    } catch (err) {
+
+      const error = err as AxiosError<ApiErrorResponse>;
+      const data = error.response?.data;
+  
+      if (!data) {
+        setError("Failed to update profile.");
+        return;
+      }
+  
+      if (data.errors && Object.keys(data.errors).length > 0) {
+        setError(Object.values(data.errors).join(", "));
+      } else {
+        setError(data.message);
+      }
+  
     } finally {
       setSaving(false);
     }

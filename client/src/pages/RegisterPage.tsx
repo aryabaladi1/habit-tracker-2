@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { registerUser } from "../api/authService"
 import { useAuth } from "../context/AuthContext"
 import RegisterView from "../components/register/RegisterView"
+import { AxiosError } from "axios";
+import type { ApiErrorResponse } from "../types/ApiErrorResponse";
 
 export default function RegisterPage() {
   const { login } = useAuth();
@@ -16,19 +18,44 @@ export default function RegisterPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
+    const errors: string[] = [];
+
+    if (!username.trim()) {
+      errors.push("Username cannot be empty");
+    }
+
+    if (!password.trim()) {
+      errors.push("Password cannot be empty");
+    }
+
+    if (errors.length > 0) {
+      setError(errors.join(", "));
+      return;
+    }
+
     setLoading(true);
 
     try {
       const res = await registerUser({ username, password });
       login(res.token);
       navigate("/dashboard");
-    } catch (err: any) {
-      if (err.response?.status === 400 && err.response?.data) {
-          const messages = Object.values(err.response.data).join(", ");
-          setError(messages);
-        } else {
-          setError(err.response?.data?.message || "Registration failed");
-        }
+    } catch (err) {
+
+      const error = err as AxiosError<ApiErrorResponse>;
+      const data = error.response?.data;
+    
+      if (!data) {
+        setError("Registration failed");
+        return;
+      }
+    
+      if (data.errors && Object.keys(data.errors).length > 0) {
+        setError(Object.values(data.errors).join(", "));
+      } else {
+        setError(data.message);
+      }
+    
     } finally {
       setLoading(false);
     }

@@ -4,6 +4,10 @@ import { createHabit, getAllHabits, } from "../api/habitService";
 
 import type { HabitResponse } from "../types/dto/habit/response/HabitResponse";
 
+import { AxiosError } from "axios";
+
+import type { ApiErrorResponse } from "../types/ApiErrorResponse";
+
 import "../styles/habit/HabitsPage.css";
 
 export default function HabitsPage() {
@@ -45,6 +49,17 @@ export default function HabitsPage() {
     setError("");
     setFieldErrors({});
   
+    const errors: Record<string, string> = {};
+
+    if (!name.trim()) {
+      errors.name = "Habit name cannot be empty";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      return;
+    }
+
     try {
   
       setCreating(true);
@@ -62,26 +77,20 @@ export default function HabitsPage() {
       setName("");
       setDescription("");
   
-    } catch (err: any) {
-  
-      const data = err.response?.data;
-  
-      if (
-        data &&
-        typeof data === "object" &&
-        !data.message
-      ) {
-  
-        setFieldErrors(
-          data as Record<string, string>
-        );
-  
+    } catch (err) {
+      const error = err as AxiosError<ApiErrorResponse>;
+      const data = error.response?.data;
+
+      if (!data) {
+        setError("Failed to create habit.");
+        return;
+      }
+
+      if (data.errors && Object.keys(data.errors).length > 0) {
+        setFieldErrors(data.errors);
+        setError("");
       } else {
-  
-        setError(
-          data?.message ||
-          "Failed to create habit."
-        );
+        setError(data.message);
       }
   
     } finally {
