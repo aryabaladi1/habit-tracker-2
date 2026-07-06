@@ -26,7 +26,7 @@ class DailyHabitLogService(
     private val eventPublisher: EventPublisher
 ) {
     @Transactional
-    fun createOrUpdateDailyHabitLog(habitId: Long, request: DailyHabitLogRequest): DailyHabitLog {
+    fun saveDailyHabitLog(habitId: Long, request: DailyHabitLogRequest): DailyHabitLog {
         val user = authUtil.getAuthenticatedUser()
         val habit = habitRepository.findByIdAndUserId(habitId, user.id!!)
             .orElseThrow { ApiRequestException(HABIT_NOT_FOUND, HttpStatus.NOT_FOUND)}

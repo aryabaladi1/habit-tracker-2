@@ -6,7 +6,7 @@ import type { WeeklyHabitLogRequest } from "../types/dto/logs/request/weekly/Wee
 import type { WeeklyHabitLogResponse } from "../types/dto/logs/response/weekly/WeeklyHabitLogResponse";
 import type { FullHabitLogsForWeek } from "../types/dto/logs/response/FullHabitLogsForWeek";
 
-export async function createOrUpdateDailyHabitLog(
+export async function saveDailyHabitLog(
     habitId: number,
     data: DailyHabitLogRequest
 ): Promise<DailyHabitLogResponse> {
@@ -14,7 +14,7 @@ export async function createOrUpdateDailyHabitLog(
     return res.data;
 }
 
-export async function createOrUpdateWeeklyHabitLog(
+export async function saveWeeklyHabitLog(
     habitId: number,
     data: WeeklyHabitLogRequest
 ): Promise<WeeklyHabitLogResponse> {

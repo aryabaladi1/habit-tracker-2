@@ -28,21 +28,21 @@ class HabitLogController(
 ) {
 
     @PutMapping("/daily/{habitId}")
-    fun createOrUpdateDailyHabitLog(
+    fun saveDailyHabitLog(
         @PathVariable habitId: Long, 
         @Valid @RequestBody request: DailyHabitLogRequest
         ): ResponseEntity<DailyHabitLogResponse> {
-        val dailyHabitLog = dailyHabitLogService.createOrUpdateDailyHabitLog(habitId, request)
+        val dailyHabitLog = dailyHabitLogService.saveDailyHabitLog(habitId, request)
         val response = DailyHabitLogMapper.toDailyHabitLogResponse(dailyHabitLog)
         return ResponseEntity.ok(response)
     }
 
     @PutMapping("/weekly/{habitId}")
-    fun createOrUpdateWeeklyHabitLog(
+    fun saveWeeklyHabitLog(
         @PathVariable habitId: Long, 
         @Valid @RequestBody request: WeeklyHabitLogRequest
         ): ResponseEntity<WeeklyHabitLogResponse> {
-        val weeklyHabitLog = weeklyHabitLogService.createOrUpdateWeeklyHabitLog(habitId, request)
+        val weeklyHabitLog = weeklyHabitLogService.saveWeeklyHabitLog(habitId, request)
         val response = WeeklyHabitLogMapper.toWeeklyHabitLogResponse(weeklyHabitLog)
         return ResponseEntity.ok(response)
     }

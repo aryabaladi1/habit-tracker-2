@@ -59,7 +59,7 @@ class WeeklyHabitLogService(
         weeklyHabitLogRepository.save(weeklyLog)
     }
 
-    fun createOrUpdateWeeklyHabitLog(habitId: Long, request: WeeklyHabitLogRequest): WeeklyHabitLog {
+    fun saveWeeklyHabitLog(habitId: Long, request: WeeklyHabitLogRequest): WeeklyHabitLog {
         val user = authUtil.getAuthenticatedUser()
         val habit = habitRepository.findByIdAndUserId(habitId, user.id!!)
             .orElseThrow { ApiRequestException(HABIT_NOT_FOUND, HttpStatus.NOT_FOUND) }
