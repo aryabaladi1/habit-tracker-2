@@ -24,17 +24,6 @@ class HabitService(
     private val userRepository: UserRepository,
     private val authUtil: AuthUtil
 ) {
-    @EventListener
-    @Transactional
-    fun handleDailyHabitLogUpdated(event: DailyHabitLogUpdatedEvent) {
-        val habit = habitRepository.findById(event.habitId)
-            .orElseThrow { ApiRequestException(HABIT_NOT_FOUND, HttpStatus.NOT_FOUND) }
-
-        habit.minutesTotal += event.minutesDoneChange
-
-        habitRepository.save(habit)
-    }
-
     fun createHabit(request: HabitCreateRequest): Habit {
         val user = authUtil.getAuthenticatedUser()
             .let { userRepository.findById(it.id!!).orElseThrow {
