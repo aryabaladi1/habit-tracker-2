@@ -1,6 +1,5 @@
 package com.habit.habit_tracker.service
 
-import org.springframework.context.event.EventListener
 
 import com.habit.habit_tracker.constants.ErrorMessage.USER_NOT_FOUND
 import com.habit.habit_tracker.constants.ErrorMessage.HABIT_NOT_FOUND
@@ -11,12 +10,10 @@ import com.habit.habit_tracker.domain.Habit
 import com.habit.habit_tracker.dto.habit.request.HabitCreateRequest
 import com.habit.habit_tracker.dto.habit.request.HabitUpdateRequest
 import com.habit.habit_tracker.exception.ApiRequestException
-import com.habit.habit_tracker.events.DailyHabitLogUpdatedEvent
 import com.habit.habit_tracker.repository.HabitRepository
 import com.habit.habit_tracker.repository.UserRepository
 import com.habit.habit_tracker.security.AuthUtil
 
-import jakarta.transaction.Transactional
 
 @Service
 class HabitService(
