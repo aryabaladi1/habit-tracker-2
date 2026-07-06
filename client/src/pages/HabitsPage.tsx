@@ -6,7 +6,7 @@ import type { HabitResponse } from "../types/dto/habit/response/HabitResponse";
 
 import { AxiosError } from "axios";
 
-import type { ApiErrorResponse } from "../types/ApiErrorResponse";
+import type { ApiErrorResponse } from "../types/dto/ApiErrorResponse";
 
 import "../styles/habit/HabitsPage.css";
 

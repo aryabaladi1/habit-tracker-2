@@ -4,7 +4,7 @@ import { loginUser } from "../api/authService"
 import { useAuth } from "../context/AuthContext"
 import LoginView from "../components/login/LoginView"
 import { AxiosError } from "axios";
-import type { ApiErrorResponse } from "../types/ApiErrorResponse";
+import type { ApiErrorResponse } from "../types/dto/ApiErrorResponse";
 
 export default function LoginPage() {
   const { login } = useAuth();

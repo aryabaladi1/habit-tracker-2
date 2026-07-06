@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getUserDetails, updateUserDetails } from "../api/userService";
 import { AxiosError } from "axios";
-import type { ApiErrorResponse } from "../types/ApiErrorResponse";
+import type { ApiErrorResponse } from "../types/dto/ApiErrorResponse";
 
 import type { UserResponse } from "../types/dto/user/response/UserResponse";
 

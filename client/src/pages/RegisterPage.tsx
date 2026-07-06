@@ -4,7 +4,7 @@ import { registerUser } from "../api/authService"
 import { useAuth } from "../context/AuthContext"
 import RegisterView from "../components/register/RegisterView"
 import { AxiosError } from "axios";
-import type { ApiErrorResponse } from "../types/ApiErrorResponse";
+import type { ApiErrorResponse } from "../types/dto/ApiErrorResponse";
 
 export default function RegisterPage() {
   const { login } = useAuth();
