@@ -55,33 +55,6 @@ class DailyHabitLogService(
         }
 
         return dailyHabitLogRepository.save(dhl)
-
-        // val dhlOptional = dailyHabitLogRepository.findByHabitAndDate(habitId, request.date)
-        // var dhl: DailyHabitLog
-
-        // if (dhlOptional.isPresent()) {
-        //     dhl = dhlOptional.get()
-        //     dhl.apply {
-        //         request.notes?.let { notes = it }
-        //         request.minutesDone?.let { 
-        //             val minutesDoneChange: Int = it - dhl.minutesDone // Calculating the change for the event
-        //             dhl.minutesDone = it                              // before assigning it to the log 
-        //             eventPublisher.publishDailyHabitLogUpdated(dhl.habit.user.id!!, minutesDoneChange, dhl.date)
-        //         }
-        //     }
-        // } else {
-        //     dhl = DailyHabitLog(
-        //         habit = habit,
-        //         date = request.date,
-        //         minutesDone = request.minutesDone ?: 0,
-        //         notes = request.notes
-        //     )
-        //     if (request.minutesDone != null) {
-        //         eventPublisher.publishDailyHabitLogUpdated(dhl.habit.user.id!!, dhl.minutesDone, dhl.date)
-        //     }
-        // }
-
-        // return dailyHabitLogRepository.save(dhl)
     }
 
     fun getDailyHabitLog(habitId: Long, date: LocalDate): DailyHabitLog {
