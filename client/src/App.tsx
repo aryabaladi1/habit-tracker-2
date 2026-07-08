@@ -16,10 +16,10 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/login" element={ isAuthenticated ? <Navigate to="/dashboard" replace /> : <LoginPage /> }/>
-        <Route path="/register" element={ isAuthenticated ? <Navigate to="/dashboard" replace /> : <RegisterPage /> }/>
+        <Route path="/login" element={ isAuthenticated ? <Navigate to="/" replace /> : <LoginPage /> }/>
+        <Route path="/register" element={ isAuthenticated ? <Navigate to="/" replace /> : <RegisterPage /> }/>
 
-        <Route path="/dashboard" element={ isAuthenticated ? <DashboardPage /> : <Navigate to="/login" replace /> }/>
+        <Route path="/" element={ isAuthenticated ? <DashboardPage /> : <Navigate to="/login" replace /> }/>
         <Route path="/profile" element={ isAuthenticated ? <ProfilePage /> : <Navigate to="/login" replace /> }/>
         <Route path="/habits" element={ isAuthenticated ? <HabitsPage /> : <Navigate to="/login" replace /> }/>
         <Route path="/tasks" element={ isAuthenticated ? <TasksPage /> : <Navigate to="/login" replace /> }/>
