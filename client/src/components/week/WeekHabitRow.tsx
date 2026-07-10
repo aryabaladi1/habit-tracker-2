@@ -1,0 +1,94 @@
+import type { FullHabitLogsForWeek } from "../../types/dto/logs/response/FullHabitLogsForWeek";
+import DayCell from "./DayCell";
+
+import "../../styles/weeks/WeekHabitRow.css";
+
+interface WeekHabitRowProps {
+  habitData: FullHabitLogsForWeek;
+
+  dates: Date[];
+
+  onDailyMinutesChange: (
+    habitId: number,
+    date: string,
+    minutes: number
+  ) => void;
+
+  onWeeklyGoalChange: (
+    habitId: number,
+    goal: number
+  ) => void;
+}
+
+export default function WeekHabitRow({
+  habitData,
+  dates,
+  onDailyMinutesChange,
+  onWeeklyGoalChange,
+}: WeekHabitRowProps) {
+
+  const weeklyLog = habitData.weeklyHabitLog;
+
+  return (
+    <tr className="week-habit-row">
+
+      <td className="habit-name">
+        {habitData.habit.name}
+      </td>
+
+      <td>
+
+        <input
+          type="number"
+          min={0}
+          value={weeklyLog?.weeklyGoal ?? ""}
+          onBlur={(e) =>
+            onWeeklyGoalChange(
+              habitData.habit.id,
+              Number(e.target.value)
+            )
+          }
+        />
+
+      </td>
+
+      {dates.map((date) => {
+
+        const dateString =
+          date.toISOString().split("T")[0];
+
+        const log =
+          habitData.dailyHabitLogs.find(
+            (d) => d.date === dateString
+          );
+
+        return (
+          <DayCell
+              key={dateString}
+              habitId={habitData.habit.id}
+              date={dateString}
+              dailyLog={log}
+              dailyGoal={weeklyLog?.dailyGoal}
+              onMinutesChange={onDailyMinutesChange}
+          />
+        );
+
+      })}
+
+      <td className="total-cell">
+        {weeklyLog?.minutesDone ?? 0}
+      </td>
+
+      <td
+        className={
+          (weeklyLog?.weeklyImbalance ?? 0) >= 0
+            ? "positive"
+            : "negative"
+        }
+      >
+        {weeklyLog?.weeklyImbalance ?? 0}
+      </td>
+
+    </tr>
+  );
+}

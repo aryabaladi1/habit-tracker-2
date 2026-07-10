@@ -1,0 +1,56 @@
+.week-table-container {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border-radius: 18px;
+
+    background: #1d1d1d;
+}
+
+.week-table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+.week-table th,
+.week-table td {
+    padding: 20px 16px;
+
+    text-align: center;
+
+    color: white;
+}
+
+.week-table th {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.week-table td {
+    font-size: 0.95rem;
+}
+
+.week-table tbody tr:hover {
+    background: rgba(255,255,255,0.03);
+}
+
+.week-table input {
+    width: 70px;
+
+    padding: 8px;
+
+    text-align: center;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #2b2b2b;
+
+    color: white;
+}
+
+.week-table input:focus {
+    outline: 2px solid #4b83ff;
+}
