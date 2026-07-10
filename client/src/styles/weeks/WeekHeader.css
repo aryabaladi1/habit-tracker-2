@@ -53,6 +53,7 @@
 
 .week-nav-button:hover {
     color: #57B9FF;
+    transition: 0.2s ease;
 }
 
 .week-nav-button:first-child {
