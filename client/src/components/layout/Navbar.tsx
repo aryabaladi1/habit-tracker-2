@@ -8,12 +8,14 @@ export default function Navbar() {
     <header className="navbar">
 
       <div className="navbar-logo">
-        <Link to="/">Eiki</Link>
+        <Link to="/">
+          Eiki
+        </Link>
       </div>
 
       <nav className="navbar-links">
 
-        <NavLink to="/week">
+        <NavLink to="/">
           Week
         </NavLink>
 
@@ -32,7 +34,9 @@ export default function Navbar() {
       </nav>
 
       <div className="navbar-user">
-        <UserCircle2 size={30} />
+        <NavLink to="/profile">
+          <UserCircle2 size={30} />
+        </NavLink>
       </div>
 
     </header>

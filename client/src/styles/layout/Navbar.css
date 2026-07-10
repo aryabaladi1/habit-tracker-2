@@ -31,13 +31,30 @@
     letter-spacing: .5px;
 }
 
+.navbar-user a {
+    color: white;
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+}
+
+.navbar-user a:hover {
+    color: #57B9FF;
+    transition: .2s;
+}
+
+.navbar-user a.active {
+    color: white;
+}
+
 .navbar-links {
     display: flex;
     gap: 42px;
 }
 
 .navbar-links a {
-    color: #c7c7c7;
+    color: #FFFFFF;   
 
     text-decoration: none;
 
@@ -49,12 +66,11 @@
 }
 
 .navbar-links a:hover {
-    color: white;
+    color: #57B9FF;
 }
 
 .navbar-links a.active {
-    color: white;
-    font-weight: 700;
+    color: #57B9FF;
 }
 
 .navbar-user {
