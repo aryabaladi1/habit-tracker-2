@@ -22,7 +22,7 @@
 }
 
 .navbar-logo a {
-    color: white;
+    color: #57B9FF;
     text-decoration: none;
 
     font-size: 1.4rem;
@@ -62,7 +62,7 @@
 
     font-weight: 500;
 
-    transition: .2s;
+    transition: .2s ease;
 }
 
 .navbar-links a:hover {

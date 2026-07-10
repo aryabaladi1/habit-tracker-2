@@ -16,7 +16,7 @@ export default function Navbar() {
       <nav className="navbar-links">
 
         <NavLink to="/">
-          Week
+          Home
         </NavLink>
 
         <NavLink to="/calendar">

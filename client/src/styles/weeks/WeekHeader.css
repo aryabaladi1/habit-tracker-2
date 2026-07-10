@@ -10,11 +10,22 @@
 .week-title {
     margin: 0;
 
-    color: white;
+    color: #57B9FF;
 
     font-size: 2rem;
     font-weight: 700;
 }
+
+.week-title-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.week-title-link:hover .week-title {
+    color: #57B9FF;
+    transition: .2s ease;
+}
+
 
 .week-navigation {
     display: flex;
@@ -23,6 +34,10 @@
 }
 
 .week-nav-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
     background: transparent;
     border: none;
 
@@ -37,7 +52,11 @@
 }
 
 .week-nav-button:hover {
-    opacity: 0.7;
+    color: #57B9FF;
+}
+
+.week-nav-button:first-child {
+    margin-left: -36px;
 }
 
 .week-range {

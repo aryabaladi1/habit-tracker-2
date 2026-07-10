@@ -1,5 +1,6 @@
 import "../../styles/weeks/WeekHeader.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface WeekHeaderProps {
   weekNumber: number;
@@ -27,9 +28,11 @@ export default function WeekHeader({
   return (
     <div className="week-header">
 
-      <h1 className="week-title">
-        Week {weekNumber}
-      </h1>
+      <Link to="/weeks" className="week-title-link">
+        <h1 className="week-title">
+          Week {weekNumber}
+        </h1>
+      </Link>
 
       <div className="week-navigation">
 
