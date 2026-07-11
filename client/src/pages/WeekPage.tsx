@@ -3,14 +3,12 @@ import { useEffect, useState } from "react";
 import WeekHeader from "../components/week/WeekHeader";
 import WeekTable from "../components/week/WeekTable";
 
-import { getAllHabits } from "../api/habitService";
 import {
   getFullHabitLogsForWeek,
   saveDailyHabitLog,
   saveWeeklyHabitLog,
 } from "../api/habitLogService";
 
-import type { HabitResponse } from "../types/dto/habit/response/HabitResponse";
 import type { FullHabitLogsForWeek } from "../types/dto/logs/response/FullHabitLogsForWeek";
 
 import "../styles/weeks/WeekPage.css";
@@ -51,19 +49,14 @@ export default function WeekPage() {
     try {
       setLoading(true);
 
-      const habits: HabitResponse[] = await getAllHabits();
-
-      const data = await Promise.all(
-        habits.map((habit) =>
-          getFullHabitLogsForWeek(
-            habit.id,
-            weekStart,
-            weekEnd
-          )
-        )
+      const data = await getFullHabitLogsForWeek(
+        weekStart,
+        weekEnd
       );
-
+      
       setWeekData(data);
+
+setWeekData(data);
     } catch (err) {
       console.error(err);
       setError("Failed to load week.");

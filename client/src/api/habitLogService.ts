@@ -33,12 +33,11 @@ export async function getDailyHabitLog(
 }
 
 export async function getFullHabitLogsForWeek(
-    habitId: number,
     weekStart: string,
     weekEnd: string
-): Promise<FullHabitLogsForWeek> {
-    const res = await api.get<FullHabitLogsForWeek>(`/v1/logs/week`, {
-        params: { habitId, weekStart, weekEnd },
+): Promise<FullHabitLogsForWeek[]> {
+    const res = await api.get<FullHabitLogsForWeek[]>(`/v1/logs/week`, {
+        params: { weekStart, weekEnd },
     });
     return res.data;
 }
