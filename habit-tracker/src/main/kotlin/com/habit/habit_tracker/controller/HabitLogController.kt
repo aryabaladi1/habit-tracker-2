@@ -7,11 +7,10 @@ import com.habit.habit_tracker.dto.logs.response.weekly.WeeklyHabitLogResponse
 import com.habit.habit_tracker.dto.logs.response.FullHabitLogsForWeek
 import com.habit.habit_tracker.mapper.DailyHabitLogMapper
 import com.habit.habit_tracker.mapper.WeeklyHabitLogMapper
-import com.habit.habit_tracker.mapper.FullHabitLogsForWeekMapper
 import com.habit.habit_tracker.exception.ApiRequestException
 import com.habit.habit_tracker.service.DailyHabitLogService
+import com.habit.habit_tracker.service.FullHabitLogService
 import com.habit.habit_tracker.service.WeeklyHabitLogService
-import com.habit.habit_tracker.service.HabitService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -24,7 +23,7 @@ import java.time.format.DateTimeParseException
 class HabitLogController(
     private val dailyHabitLogService: DailyHabitLogService,
     private val weeklyHabitLogService: WeeklyHabitLogService,
-    private val habitService: HabitService
+    private val fullHabitLogService: FullHabitLogService
 ) {
 
     @PutMapping("/daily/{habitId}")
@@ -64,23 +63,14 @@ class HabitLogController(
 
     @GetMapping("/week")
     fun getFullHabitLogsForWeek(
-        @RequestParam("habitId") habitId: Long,
         @RequestParam("weekStart") weekStartString: String,
         @RequestParam("weekEnd") weekEndString: String
-    ): ResponseEntity<FullHabitLogsForWeek> {
+    ): ResponseEntity<List<FullHabitLogsForWeek>> {
         return try {
             val weekStart = LocalDate.parse(weekStartString)
             val weekEnd = LocalDate.parse(weekEndString)
 
-            val dailyHabitLogs = dailyHabitLogService.getDailyHabitLogsForWeek(habitId, weekStart, weekEnd)
-            val weeklyHabitLog = weeklyHabitLogService.getWeeklyHabitLog(habitId, weekStart, weekEnd)
-            val habit = habitService.getHabit(habitId)
-
-            val fullHabitLogsForWeek = FullHabitLogsForWeekMapper.toFullHabitLogsForWeek(
-                dailyHabitLogs, 
-                weeklyHabitLog, 
-                habit
-            )
+            val fullHabitLogsForWeek = fullHabitLogService.getFullHabitLogsForWeek(weekStart, weekEnd);
 
             ResponseEntity.ok(fullHabitLogsForWeek)
 

@@ -1,4 +1,4 @@
-package com.habit.habit_tracker.repository;
+package com.habit.habit_tracker.repository
 
 import java.time.LocalDate
 import java.util.Optional
@@ -18,4 +18,11 @@ interface WeeklyHabitLogRepository : JpaRepository<WeeklyHabitLog, Long> {
         @Param("weekStart") weekStart: LocalDate,
         @Param("weekEnd") weekEnd: LocalDate,
     ): Optional<WeeklyHabitLog>
+
+    @Query("SELECT w FROM WeeklyHabitLog w JOIN FETCH w.habit WHERE w.habit.user.id = :userId AND w.weekStart = :weekStart AND w.weekEnd = :weekEnd")
+    fun findAllForUserWeek(
+        @Param("userId") userId: Long,
+        @Param("weekStart") weekStart: LocalDate,
+        @Param("weekEnd") weekEnd: LocalDate
+    ): List<WeeklyHabitLog>
 }
