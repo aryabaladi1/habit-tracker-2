@@ -15,13 +15,6 @@ interface DailyHabitLogRepository : JpaRepository<DailyHabitLog, Long> {
     @Query("SELECT d FROM DailyHabitLog d WHERE d.habit.id = :habitId AND d.date = :date")
     fun findByHabitAndDate(@Param("habitId") habitId: Long, @Param("date") date: LocalDate): Optional<DailyHabitLog>
 
-    @Query("SELECT d FROM DailyHabitLog d WHERE d.habit.id = :habitId AND d.date BETWEEN :weekStart AND :weekEnd")
-    fun findDailyHabitLogsForWeek(
-        @Param("habitId") habitId: Long,
-        @Param("weekStart") weekStart: LocalDate,
-        @Param("weekEnd") weekEnd: LocalDate
-    ): List<DailyHabitLog>
-
     @Query("SELECT d FROM DailyHabitLog d JOIN FETCH d.habit WHERE d.habit.user.id = :userId AND d.date BETWEEN :weekStart AND :weekEnd")
     fun findAllForUserWeek(
         @Param("userId") userId: Long,

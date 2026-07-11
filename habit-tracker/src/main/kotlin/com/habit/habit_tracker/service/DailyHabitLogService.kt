@@ -65,12 +65,4 @@ class DailyHabitLogService(
         return dailyHabitLogRepository.findByHabitAndDate(habitId, date)
             .orElseThrow { ApiRequestException(DHL_NOT_FOUND, HttpStatus.NOT_FOUND)}
     }
-
-    fun getDailyHabitLogsForWeek(habitId: Long, weekStart: LocalDate, weekEnd: LocalDate): List<DailyHabitLog> {
-        val user = authUtil.getAuthenticatedUser()
-        habitRepository.findByIdAndUserId(habitId, user.id!!)
-            .orElseThrow { ApiRequestException(HABIT_NOT_FOUND, HttpStatus.NOT_FOUND)}
-
-        return dailyHabitLogRepository.findDailyHabitLogsForWeek(habitId, weekStart, weekEnd)
-    }
 }

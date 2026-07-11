@@ -81,12 +81,4 @@ class WeeklyHabitLogService(
 
         return weeklyHabitLogRepository.save(weeklyLog)
     }
-
-    fun getWeeklyHabitLog(habitId: Long, weekStart: LocalDate, weekEnd: LocalDate): WeeklyHabitLog? {
-        val user = authUtil.getAuthenticatedUser()
-        habitRepository.findByIdAndUserId(habitId, user.id!!)
-            .orElseThrow { ApiRequestException(HABIT_NOT_FOUND, HttpStatus.NOT_FOUND) }
-        
-        return weeklyHabitLogRepository.findByHabitAndDate(habitId, weekStart, weekEnd).orElse(null)
-    }
 }
