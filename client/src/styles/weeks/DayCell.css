@@ -1,25 +1,6 @@
 .day-cell {
     transition: background-color 0.2s ease;
-}
-
-.day-cell input {
-    width: 64px;
-
-    padding: 8px;
-
-    border: none;
-
-    border-radius: 8px;
-
-    background: #2b2b2b;
-
-    color: white;
-
-    text-align: center;
-}
-
-.day-cell input:focus {
-    outline: 2px solid #4b83ff;
+    padding: 2px !important;
 }
 
 /* Progress colors */

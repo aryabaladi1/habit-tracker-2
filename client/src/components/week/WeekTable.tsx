@@ -41,7 +41,10 @@ export default function WeekTable({
             <th>Goal</th>
 
             {dates.map((date) => (
-              <th key={date.toISOString()}>
+              <th
+                key={date.toISOString()}
+                className="day-column"
+              >
                 {date.toLocaleDateString("en-US", {
                   weekday: "short",
                 })}

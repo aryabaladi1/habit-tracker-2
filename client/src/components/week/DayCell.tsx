@@ -1,4 +1,5 @@
 import type { DailyHabitLogResponse } from "../../types/dto/logs/response/daily/DailyHabitLogResponse";
+import EditableNumberCell from "./EditableNumberCell";
 
 import "../../styles/weeks/DayCell.css";
 
@@ -54,19 +55,17 @@ export default function DayCell({
   return (
     <td className={`day-cell ${getProgressClass()}`}>
 
-      <input
-        type="number"
-        min={0}
-        value={minutes === 0 ? "" : minutes}
-        placeholder="0"
-        onBlur={(e) =>
-          onMinutesChange(
-            habitId,
-            date,
-            Number(e.target.value)
-          )
+    <EditableNumberCell
+        mode="time"
+        value={dailyLog?.minutesDone}
+        onSave={(minutes) =>
+            onMinutesChange(
+                habitId,
+                date,
+                minutes
+            ) 
         }
-      />
+    />
 
     </td>
   );

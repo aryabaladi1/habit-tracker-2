@@ -15,7 +15,8 @@ import "../styles/weeks/WeekPage.css";
 
 export default function WeekPage() {
   const [weekData, setWeekData] = useState<FullHabitLogsForWeek[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingInitial, setLoadingInitial] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState("");
 
   const [currentMonday, setCurrentMonday] = useState(getMonday(new Date()));
@@ -45,9 +46,12 @@ export default function WeekPage() {
   const weekStart = dates[0].toISOString().split("T")[0];
   const weekEnd = dates[6].toISOString().split("T")[0];
 
-  async function loadWeek() {
+  async function loadWeek(initial = false) {
     try {
-      setLoading(true);
+      if (initial)
+        setLoadingInitial(true);
+      else
+        setRefreshing(true);
 
       const data = await getFullHabitLogsForWeek(
         weekStart,
@@ -56,17 +60,18 @@ export default function WeekPage() {
       
       setWeekData(data);
 
-setWeekData(data);
+      setWeekData(data);
     } catch (err) {
       console.error(err);
       setError("Failed to load week.");
     } finally {
-      setLoading(false);
+      setLoadingInitial(false);
+      setRefreshing(false);
     }
   }
 
   useEffect(() => {
-    loadWeek();
+    loadWeek(true);
   }, [weekStart]);
 
   async function handleDailyMinutesChange(
@@ -129,7 +134,7 @@ setWeekData(data);
     return 1 + Math.round(diff / (7 * 24 * 60 * 60 * 1000));
   }
 
-  if (loading) {
+  if (loadingInitial) {
     return (
         <div className="loading-page">
             Loading...

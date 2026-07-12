@@ -1,5 +1,6 @@
 import type { FullHabitLogsForWeek } from "../../types/dto/logs/response/FullHabitLogsForWeek";
 import DayCell from "./DayCell";
+import EditableNumberCell from "./EditableNumberCell";
 
 import "../../styles/weeks/WeekHabitRow.css";
 
@@ -38,17 +39,15 @@ export default function WeekHabitRow({
 
       <td>
 
-        <input
-          type="number"
-          min={0}
-          value={weeklyLog?.weeklyGoal ?? ""}
-          onBlur={(e) =>
-            onWeeklyGoalChange(
-              habitData.habit.id,
-              Number(e.target.value)
-            )
+      <EditableNumberCell
+          value={weeklyLog?.weeklyGoal}
+          onSave={(goal) =>
+              onWeeklyGoalChange(
+                  habitData.habit.id,
+                  goal
+              )
           }
-        />
+      />
 
       </td>
 

@@ -1,0 +1,62 @@
+.editable-number-display {
+
+    display: inline-flex;
+
+    justify-content: center;
+    align-items: center;
+
+    width: 52px;
+    height: 24px;
+
+    padding: 0;
+
+    border-radius: 6px;
+}
+
+.editable-number-input::-webkit-outer-spin-button,
+.editable-number-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.editable-number-input[type="number"] {
+    appearance: textfield;
+}
+
+.editable-number-display:hover {
+
+    background: rgba(255,255,255,.05);
+
+    outline: 1px solid rgba(255,255,255,.12);
+
+}
+
+.editable-number-input {
+
+    width: 52px;
+    height: 24px;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+    border: none;
+    border-radius: 6px;
+
+    background: #2b2b2b;
+
+    color: white;
+
+    text-align: center;
+
+    font: inherit;
+
+    transition: .15s ease;
+
+}
+
+.editable-number-input:focus {
+
+    outline: 2px solid #4b83ff;
+
+}
