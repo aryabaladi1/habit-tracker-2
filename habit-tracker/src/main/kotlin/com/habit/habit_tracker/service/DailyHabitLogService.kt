@@ -38,10 +38,11 @@ class DailyHabitLogService(
             request.minutesDone?.let { newMinutes -> // not using "it" to avoid confusion 
                 val minutesDoneChange = newMinutes - minutesDone // calculating the change for the event
                 minutesDone = newMinutes // updating the dhl minutesDone
-                eventPublisher.publishDailyHabitLogUpdated(habit.user.id!!, minutesDoneChange, date)
 
                 habit.minutesTotal += minutesDoneChange
                 habitRepository.save(habit)
+
+                eventPublisher.publishDailyHabitLogUpdated(habit.user.id!!, minutesDoneChange, date)
             }
         } ?: DailyHabitLog(
             habit = habit,
