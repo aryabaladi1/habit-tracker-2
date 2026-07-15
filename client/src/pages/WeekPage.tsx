@@ -12,6 +12,7 @@ import {
 import type { FullHabitLogsForWeek } from "../types/dto/logs/response/FullHabitLogsForWeek";
 
 import "../styles/weeks/WeekPage.css";
+import { formatLocalDate } from "../utils/date";
 
 export default function WeekPage() {
   const [weekData, setWeekData] = useState<FullHabitLogsForWeek[]>([]);
@@ -43,8 +44,8 @@ export default function WeekPage() {
 
   const dates = getWeekDates(currentMonday);
 
-  const weekStart = dates[0].toISOString().split("T")[0];
-  const weekEnd = dates[6].toISOString().split("T")[0];
+  const weekStart = formatLocalDate(dates[0]);
+  const weekEnd = formatLocalDate(dates[6]);
 
   async function loadWeek(initial = false) {
     try {

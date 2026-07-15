@@ -3,6 +3,7 @@ import DayCell from "./DayCell";
 import EditableNumberCell from "./EditableNumberCell";
 
 import "../../styles/weeks/WeekHabitRow.css";
+import { formatLocalDate } from "../../utils/date";
 
 interface WeekHabitRowProps {
   habitData: FullHabitLogsForWeek;
@@ -40,7 +41,7 @@ export default function WeekHabitRow({
     return `${sign}${hours.toString().padStart(2, "0")}:${mins
         .toString()
         .padStart(2, "0")}`;
-}
+  }
 
   return (
     <tr className="week-habit-row">
@@ -67,7 +68,7 @@ export default function WeekHabitRow({
       {dates.map((date) => {
 
         const dateString =
-          date.toISOString().split("T")[0];
+          formatLocalDate(date)
 
         const log =
           habitData.dailyHabitLogs.find(
