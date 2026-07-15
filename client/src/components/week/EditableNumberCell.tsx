@@ -29,94 +29,207 @@ export default function EditableNumberCell({
             .padStart(2, "0")}`;
     }
 
-    function timeToMinutes(time: string): number {
-        const [hours, minutes] = time.split(":").map(Number);
+    function parseTime(text: string): number | null {
 
-        return hours * 60 + minutes;
-    }
+        const value = text.trim();
+    
+        // 2:40
+        // 02:40
+    
+        const colonMatch = /^(\d{1,2}):(\d{2})$/.exec(value);
+    
+        if (colonMatch) {
+    
+            const hours = Number(colonMatch[1]);
+            const minutes = Number(colonMatch[2]);
+    
+            if (minutes > 59) {
+                return null;
+            }
+    
+            if (hours > 23) {
+                return null;
+            }
+            
+            return hours * 60 + minutes;
+        }
+    
+        // 40
+        // 240
+        // 0230
+    
+        const digits = value.replace(/\D/g, "");
 
-    function formatDigits(value: string): string {
+        if (digits.length === 1) {
 
-        const digits = value.replace(/\D/g, "").slice(0, 4);
+            // 5 -> 00:05
+            return Number(digits);
 
-        const padded = digits.padStart(4, "0");
+        }
 
-        return `${padded.slice(0, 2)}:${padded.slice(2)}`;
+        if (digits.length === 2) {
+
+            // 40 -> 00:40
+
+            const minutes = Number(digits);
+
+            if (minutes > 59) {
+                return null;
+            }
+
+            return minutes;
+
+        }
+
+        if (digits.length === 3) {
+
+            // 240 -> 02:40
+
+            const hours = Number(digits[0]);
+            const minutes = Number(digits.slice(1));
+
+            if (minutes > 59 || hours > 23) {
+                return null;
+            }
+
+            return hours * 60 + minutes;
+
+        }
+
+        if (digits.length === 4) {
+
+            // 0230 -> 02:30
+            // 1230 -> 12:30
+
+            const hours = Number(digits.slice(0, 2));
+            const minutes = Number(digits.slice(2));
+
+            if (minutes > 59 || hours > 23) {
+                return null;
+            }
+
+            return hours * 60 + minutes;
+
+        }
+
+        return null;
+    
     }
 
     useEffect(() => {
-        setDraft(
-            mode === "time"
-                ? minutesToTime(value ?? 0)
-                : (value?.toString() ?? "")
-        );
+
+        if (mode === "time") {
+    
+            setDraft(minutesToTime(value ?? 0));
+    
+        } else {
+    
+            setDraft(value?.toString() ?? "");
+    
+        }
+    
     }, [value, mode]);
 
     useEffect(() => {
         if (editing) {
             inputRef.current?.focus();
+            inputRef.current?.select();
         }
     }, [editing]);
 
     function save() {
 
-        if (mode === "time") {
+    if (mode === "time") {
 
-            const minutes = timeToMinutes(draft);
+        const parsed = parseTime(draft);
 
-            onSave(minutes);
+        if (parsed === null) {
 
-        } else {
+            setDraft(
+                minutesToTime(value ?? 0)
+            );
 
-            onSave(Number(draft) || 0);
+            setEditing(false);
+
+            return;
+        }
+
+        onSave(parsed);
+
+    }
+    else {
+
+        const number = Number(draft);
+
+        if (!Number.isNaN(number)) {
+
+            onSave(number);
 
         }
 
-        setEditing(false);
+    }
+
+    setEditing(false);
+
     }
 
     if (editing) {
 
         return (
-
             <input
                 ref={inputRef}
                 className="editable-number-input"
                 type="text"
                 value={draft}
-                maxLength={5}
+                placeholder={mode === "time" ? "00:00" : ""}
                 onChange={(e) => {
 
                     if (mode === "time") {
-                        setDraft(formatDigits(e.target.value));
+                
+                        setDraft(
+                            e.target.value.replace(/[^\d:]/g, "")
+                        );
+                
                     } else {
+                
                         setDraft(e.target.value);
+                
                     }
-
+                
                 }}
                 onBlur={save}
                 onKeyDown={(e) => {
-
+        
                     if (e.key === "Enter") {
                         save();
                     }
-
+        
                     if (e.key === "Escape") {
-
+        
                         setDraft(
                             mode === "time"
                                 ? minutesToTime(value ?? 0)
                                 : (value?.toString() ?? "")
                         );
-
+        
                         setEditing(false);
-
                     }
-
                 }}
             />
-
         );
+    
+        return (
+    
+            <input
+                ref={inputRef}
+                className="editable-number-input"
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                onBlur={save}
+            />
+    
+        );
+    
     }
 
     return (
