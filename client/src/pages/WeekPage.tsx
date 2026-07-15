@@ -100,10 +100,10 @@ export default function WeekPage() {
       await saveWeeklyHabitLog(habitId, {
         weekStart,
         weekEnd,
-        minutesDone: null,
+        weeklyGoal: goal,
         notes: null,
       });
-
+  
       loadWeek();
     } catch (err) {
       console.error(err);

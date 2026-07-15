@@ -30,6 +30,18 @@ export default function WeekHabitRow({
 
   const weeklyLog = habitData.weeklyHabitLog;
 
+  function minutesToTime(minutes: number): string {
+    const sign = minutes > 0 ? "+" : minutes < 0 ? "-" : "";
+    const absolute = Math.abs(minutes);
+
+    const hours = Math.floor(absolute / 60);
+    const mins = absolute % 60;
+
+    return `${sign}${hours.toString().padStart(2, "0")}:${mins
+        .toString()
+        .padStart(2, "0")}`;
+}
+
   return (
     <tr className="week-habit-row">
 
@@ -40,6 +52,7 @@ export default function WeekHabitRow({
       <td>
 
       <EditableNumberCell
+          mode="time"
           value={weeklyLog?.weeklyGoal}
           onSave={(goal) =>
               onWeeklyGoalChange(
@@ -85,7 +98,7 @@ export default function WeekHabitRow({
             : "negative"
         }
       >
-        {weeklyLog?.weeklyImbalance ?? 0}
+        {minutesToTime(weeklyLog?.weeklyImbalance ?? 0)}
       </td>
 
     </tr>

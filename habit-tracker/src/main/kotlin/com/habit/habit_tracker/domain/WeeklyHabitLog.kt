@@ -25,19 +25,6 @@ data class WeeklyHabitLog(
     @field:Max(10080)
     var weeklyGoal: Int? = null,
 
-    @Column(name = "daily_goal")
-    @field:Min(0)
-    @field:Max(1440)
-    var dailyGoal: Int? = null,
-
-    @Column(name = "minutes_done")
-    @field:Min(0)
-    @field:Max(10080)
-    var minutesDone: Int = 0,
-
-    @Column(name = "weekly_imbalance")
-    var weeklyImbalance: Int? = null,
-
     @Column(name = "notes")
     @field:Size(max = 200)
     var notes: String? = null,

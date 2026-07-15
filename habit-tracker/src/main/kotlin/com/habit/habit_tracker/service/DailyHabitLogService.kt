@@ -50,9 +50,8 @@ class DailyHabitLogService(
             minutesDone = request.minutesDone ?: 0,
             notes = request.notes
         ).also {
-            if (request.minutesDone != null) {
-                eventPublisher.publishDailyHabitLogUpdated(it.habit.user.id!!, it.minutesDone, it.date)
-            }
+            habit.minutesTotal += it.minutesDone
+            habitRepository.save(habit)
         }
 
         return dailyHabitLogRepository.save(dhl)

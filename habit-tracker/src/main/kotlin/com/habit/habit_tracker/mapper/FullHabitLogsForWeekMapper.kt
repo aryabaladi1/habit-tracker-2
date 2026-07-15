@@ -8,11 +8,34 @@ import com.habit.habit_tracker.dto.logs.response.FullHabitLogsForWeek
 
 
 object FullHabitLogsForWeekMapper {
-    fun toFullHabitLogsForWeek(d: List<DailyHabitLog>, w: WeeklyHabitLog?, h: Habit): FullHabitLogsForWeek {
-        val dailyHabitLogs = d.map { DailyHabitLogMapper.toDailyHabitLogResponse(it)}
-        val weeklyHabitLogResponse = WeeklyHabitLogMapper.toWeeklyHabitLogResponse(w)
-        val habitResponse = HabitMapper.toHabitResponse(h)
 
-        return FullHabitLogsForWeek(dailyHabitLogs, weeklyHabitLogResponse, habitResponse)
+    fun toFullHabitLogsForWeek(
+        d: List<DailyHabitLog>,
+        w: WeeklyHabitLog?,
+        h: Habit
+    ): FullHabitLogsForWeek {
+
+        val dailyHabitLogs =
+            d.map {
+                DailyHabitLogMapper.toDailyHabitLogResponse(it)
+            }
+
+        val minutesDone =
+            d.sumOf { it.minutesDone }
+
+        val weeklyHabitLogResponse =
+            WeeklyHabitLogStatsMapper.toWeeklyHabitLogResponse(
+                w,
+                minutesDone
+            )
+
+        val habitResponse =
+            HabitMapper.toHabitResponse(h)
+
+        return FullHabitLogsForWeek(
+            dailyHabitLogs,
+            weeklyHabitLogResponse,
+            habitResponse
+        )
     }
 }
