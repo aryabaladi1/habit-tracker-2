@@ -6,13 +6,10 @@ import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 import java.time.LocalDate
 
-data class WeeklyHabitLogRequest(
+data class UpdateWeeklyGoalRequest(
     @field:Min(value = 0, message = "Weekly goal must be at least 0")
     @field:Max(value = 10080, message = "Weekly goal cannot exceed 10080 minutes (one week)")
     val weeklyGoal: Int? = null,
-
-    @field:Size(max = 200, message = "Notes cannot exceed 200 characters")
-    val notes: String? = null,
 
     @field:NotNull(message = "Start of the week is required")
     val weekStart: LocalDate,

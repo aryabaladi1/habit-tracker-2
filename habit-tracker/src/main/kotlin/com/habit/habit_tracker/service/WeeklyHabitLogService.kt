@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 
 import com.habit.habit_tracker.domain.WeeklyHabitLog
-import com.habit.habit_tracker.dto.request.WeeklyHabitLogRequest
+import com.habit.habit_tracker.dto.request.UpdateWeeklyGoalRequest
 import com.habit.habit_tracker.exception.ApiRequestException
 import com.habit.habit_tracker.repository.HabitRepository
 import com.habit.habit_tracker.repository.WeeklyHabitLogRepository
@@ -23,9 +23,9 @@ class WeeklyHabitLogService(
 ) {
     private val logger: Logger = LoggerFactory.getLogger(WeeklyHabitLogService::class.java)
 
-    fun saveWeeklyHabitLog(
+    fun updateWeeklyGoal(
         habitId: Long,
-        request: WeeklyHabitLogRequest
+        request: UpdateWeeklyGoalRequest
     ): WeeklyHabitLog {
 
         val user = authUtil.getAuthenticatedUser()
@@ -41,7 +41,6 @@ class WeeklyHabitLogService(
                 )
             }
 
-
         val weeklyLog =
             weeklyHabitLogRepository.findByHabitAndDate(
                 habitId,
@@ -56,10 +55,7 @@ class WeeklyHabitLogService(
                     )
                 }
 
-
         weeklyLog.weeklyGoal = request.weeklyGoal
-        weeklyLog.notes = request.notes
-
 
         return weeklyHabitLogRepository.save(weeklyLog)
     }

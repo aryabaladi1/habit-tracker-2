@@ -1,15 +1,15 @@
 package com.habit.habit_tracker.mapper
 
 import com.habit.habit_tracker.domain.WeeklyHabitLog
-import com.habit.habit_tracker.dto.response.WeeklyHabitLogSaveResponse
+import com.habit.habit_tracker.dto.response.UpdateWeeklyGoalResponse
 
 object WeeklyHabitLogMapper {
 
-    fun toWeeklyHabitLogSaveResponse(
+    fun toUpdateWeeklyGoalResponse(
         log: WeeklyHabitLog
-    ): WeeklyHabitLogSaveResponse  {
+    ): UpdateWeeklyGoalResponse  {
 
-        return WeeklyHabitLogSaveResponse(
+        return UpdateWeeklyGoalResponse(
             id = log.id!!,
             habitId = log.habit.id!!,
             weeklyGoal = log.weeklyGoal,

@@ -2,7 +2,7 @@ import { api } from "./axiosInstance";
 
 import type { DailyHabitLogRequest } from "../types/dto/request/DailyHabitLogRequest";
 import type { DailyHabitLogResponse } from "../types/dto/response/DailyHabitLogResponse";
-import type { WeeklyHabitLogRequest } from "../types/dto/request/WeeklyHabitLogRequest";
+import type { UpdateWeeklyGoalRequest } from "../types/dto/request/UpdateWeeklyGoalRequest";
 import type { WeeklyHabitLogResponse } from "../types/dto/response/WeeklyHabitLogResponse";
 import type { FullHabitLogsForWeek } from "../types/dto/response/FullHabitLogsForWeek";
 
@@ -14,11 +14,11 @@ export async function saveDailyHabitLog(
     return res.data;
 }
 
-export async function saveWeeklyHabitLog(
+export async function updateWeeklyGoal(
     habitId: number,
-    data: WeeklyHabitLogRequest
+    data: UpdateWeeklyGoalRequest
 ): Promise<WeeklyHabitLogResponse> {
-    const res = await api.put<WeeklyHabitLogResponse>(`/v1/logs/weekly/${habitId}`, data);
+    const res = await api.put<WeeklyHabitLogResponse>(`/v1/logs/weekly/${habitId}/goal`, data);
     return res.data;
 }
 

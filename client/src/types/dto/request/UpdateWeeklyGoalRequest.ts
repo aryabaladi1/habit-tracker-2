@@ -1,6 +1,5 @@
-export interface WeeklyHabitLogRequest {
+export interface UpdateWeeklyGoalRequest {
     weeklyGoal?: number | null;
-    notes?: string | null;
     weekStart: string;
     weekEnd: string
 }

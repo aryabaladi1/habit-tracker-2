@@ -6,7 +6,7 @@ import WeekTable from "../components/week/WeekTable";
 import {
   getFullHabitLogsForWeek,
   saveDailyHabitLog,
-  saveWeeklyHabitLog,
+  updateWeeklyGoal,
 } from "../api/habitLogService";
 
 import type { FullHabitLogsForWeek } from "../types/dto/response/FullHabitLogsForWeek";
@@ -40,8 +40,6 @@ export default function WeekPage() {
       );
       
       setWeekData(data);
-
-      setWeekData(data);
     } catch (err) {
       console.error(err);
       setError("Failed to load week.");
@@ -73,16 +71,15 @@ export default function WeekPage() {
     }
   }
 
-  async function handleWeeklyGoalChange(
+  async function handleupdateWeeklyGoal(
     habitId: number,
     goal: number
   ) {
     try {
-      await saveWeeklyHabitLog(habitId, {
+      await updateWeeklyGoal(habitId, {
         weekStart,
         weekEnd,
-        weeklyGoal: goal,
-        notes: null,
+        weeklyGoal: goal
       });
   
       loadWeek();
@@ -133,7 +130,7 @@ export default function WeekPage() {
         habits={weekData}
         dates={dates}
         onDailyMinutesChange={handleDailyMinutesChange}
-        onWeeklyGoalChange={handleWeeklyGoalChange}
+        onWeeklyGoalChange={handleupdateWeeklyGoal}
       />
 
     </div>

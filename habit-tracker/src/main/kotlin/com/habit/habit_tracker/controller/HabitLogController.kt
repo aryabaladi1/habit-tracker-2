@@ -2,9 +2,9 @@ package com.habit.habit_tracker.controller
 
 import com.habit.habit_tracker.dto.request.DailyHabitLogRequest
 import com.habit.habit_tracker.dto.response.DailyHabitLogResponse
-import com.habit.habit_tracker.dto.request.WeeklyHabitLogRequest
+import com.habit.habit_tracker.dto.request.UpdateWeeklyGoalRequest
 import com.habit.habit_tracker.dto.response.FullHabitLogsForWeek
-import com.habit.habit_tracker.dto.response.WeeklyHabitLogSaveResponse
+import com.habit.habit_tracker.dto.response.UpdateWeeklyGoalResponse
 import com.habit.habit_tracker.mapper.DailyHabitLogMapper
 import com.habit.habit_tracker.exception.ApiRequestException
 import com.habit.habit_tracker.mapper.WeeklyHabitLogMapper
@@ -36,14 +36,14 @@ class HabitLogController(
         return ResponseEntity.ok(response)
     }
 
-    @PutMapping("/weekly/{habitId}")
-    fun saveWeeklyHabitLog(
+    @PutMapping("/weekly/{habitId}/goal")
+    fun updateWeeklyGoal(
         @PathVariable habitId: Long, 
-        @Valid @RequestBody request: WeeklyHabitLogRequest
-        ): ResponseEntity<WeeklyHabitLogSaveResponse> {
-        val weeklyHabitLog = weeklyHabitLogService.saveWeeklyHabitLog(habitId, request)
+        @Valid @RequestBody request: UpdateWeeklyGoalRequest
+        ): ResponseEntity<UpdateWeeklyGoalResponse> {
+        val weeklyHabitLog = weeklyHabitLogService.updateWeeklyGoal(habitId, request)
         val response =
-            WeeklyHabitLogMapper.toWeeklyHabitLogSaveResponse(
+            WeeklyHabitLogMapper.toUpdateWeeklyGoalResponse(
                 weeklyHabitLog
             )
         return ResponseEntity.ok(response)
