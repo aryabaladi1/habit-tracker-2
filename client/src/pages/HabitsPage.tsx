@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { createHabit, getAllHabits, } from "../api/habitService";
 
-import type { HabitResponse } from "../types/dto/habit/response/HabitResponse";
+import type { HabitResponse } from "../types/dto/response/HabitResponse";
 
 import { AxiosError } from "axios";
 

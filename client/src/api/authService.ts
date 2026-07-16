@@ -1,7 +1,7 @@
 import { authApi } from "./axiosInstance";
-import type { AuthResponse } from "../types/dto/auth/response/AuthResponse";
-import type { RegisterRequest } from "../types/dto/auth/request/RegisterRequest";
-import type { LoginRequest } from "../types/dto/auth/request/LoginRequest";
+import type { AuthResponse } from "../types/dto/response/AuthResponse";
+import type { RegisterRequest } from "../types/dto/request/RegisterRequest";
+import type { LoginRequest } from "../types/dto/request/LoginRequest";
 
 export async function loginUser(data: LoginRequest): Promise<AuthResponse> {
     const res = await authApi.post<AuthResponse>("/v1/auth/login", data);

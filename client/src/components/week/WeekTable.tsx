@@ -1,4 +1,4 @@
-import type { FullHabitLogsForWeek } from "../../types/dto/logs/response/FullHabitLogsForWeek";
+import type { FullHabitLogsForWeek } from "../../types/dto/response/FullHabitLogsForWeek";
 import WeekHabitRow from "./WeekHabitRow";
 
 import "../../styles/weeks/WeekTable.css";

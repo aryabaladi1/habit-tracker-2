@@ -5,7 +5,7 @@ import {
   getAllTasks,
 } from "../api/taskService";
 
-import type { TaskResponse } from "../types/dto/task/response/TaskResponse";
+import type { TaskResponse } from "../types/dto/response/TaskResponse";
 
 import { AxiosError } from "axios";
 

@@ -1,6 +1,6 @@
 // src/types/task/TaskResponse.ts
-import { TaskDifficulty } from "../../../enums/TaskDifficulty";
-import { TaskStatus } from "../../../enums/TaskStatus";
+import { TaskDifficulty } from "../../enums/TaskDifficulty";
+import { TaskStatus } from "../../enums/TaskStatus";
 
 export interface TaskResponse {
   id: number;

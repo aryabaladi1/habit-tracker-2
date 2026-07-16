@@ -9,7 +9,7 @@ import {
   saveWeeklyHabitLog,
 } from "../api/habitLogService";
 
-import type { FullHabitLogsForWeek } from "../types/dto/logs/response/FullHabitLogsForWeek";
+import type { FullHabitLogsForWeek } from "../types/dto/response/FullHabitLogsForWeek";
 
 import "../styles/weeks/WeekPage.css";
 import { formatLocalDate, getMonday, getWeekDates, getWeekNumber } from "../utils/date";

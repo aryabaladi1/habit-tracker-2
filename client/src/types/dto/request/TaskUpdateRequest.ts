@@ -1,5 +1,5 @@
-import { TaskDifficulty } from "../../../enums/TaskDifficulty";
-import { TaskStatus } from "../../../enums/TaskStatus";
+import { TaskDifficulty } from "../../enums/TaskDifficulty";
+import { TaskStatus } from "../../enums/TaskStatus";
 
 export interface TaskUpdateRequest {
   name?: string | null;

@@ -1,4 +1,4 @@
-import type { FullHabitLogsForWeek } from "../../types/dto/logs/response/FullHabitLogsForWeek";
+import type { FullHabitLogsForWeek } from "../../types/dto/response/FullHabitLogsForWeek";
 import DayCell from "./DayCell";
 import EditableNumberCell from "./EditableNumberCell";
 

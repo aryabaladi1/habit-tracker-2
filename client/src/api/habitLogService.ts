@@ -1,10 +1,10 @@
 import { api } from "./axiosInstance";
 
-import type { DailyHabitLogRequest } from "../types/dto/logs/request/daily/DailyHabitLogRequest";
-import type { DailyHabitLogResponse } from "../types/dto/logs/response/daily/DailyHabitLogResponse";
-import type { WeeklyHabitLogRequest } from "../types/dto/logs/request/weekly/WeeklyHabitLogRequest";
-import type { WeeklyHabitLogResponse } from "../types/dto/logs/response/weekly/WeeklyHabitLogResponse";
-import type { FullHabitLogsForWeek } from "../types/dto/logs/response/FullHabitLogsForWeek";
+import type { DailyHabitLogRequest } from "../types/dto/request/DailyHabitLogRequest";
+import type { DailyHabitLogResponse } from "../types/dto/response/DailyHabitLogResponse";
+import type { WeeklyHabitLogRequest } from "../types/dto/request/WeeklyHabitLogRequest";
+import type { WeeklyHabitLogResponse } from "../types/dto/response/WeeklyHabitLogResponse";
+import type { FullHabitLogsForWeek } from "../types/dto/response/FullHabitLogsForWeek";
 
 export async function saveDailyHabitLog(
     habitId: number,

@@ -1,7 +1,7 @@
 import { api } from "./axiosInstance";
-import type { HabitCreateRequest } from "../types/dto/habit/request/HabitCreateRequest";
-import type { HabitUpdateRequest} from "../types/dto/habit/request/HabitUpdateRequest";
-import type { HabitResponse} from "../types/dto/habit/response/HabitResponse";
+import type { HabitCreateRequest } from "../types/dto/request/HabitCreateRequest";
+import type { HabitUpdateRequest} from "../types/dto/request/HabitUpdateRequest";
+import type { HabitResponse} from "../types/dto/response/HabitResponse";
 
 export async function createHabit(data: HabitCreateRequest): Promise<HabitResponse> {
     const res = await api.post<HabitResponse>("/v1/habits", data);

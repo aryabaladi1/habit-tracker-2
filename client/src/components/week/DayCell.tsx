@@ -1,4 +1,4 @@
-import type { DailyHabitLogResponse } from "../../types/dto/logs/response/daily/DailyHabitLogResponse";
+import type { DailyHabitLogResponse } from "../../types/dto/response/DailyHabitLogResponse";
 import EditableNumberCell from "./EditableNumberCell";
 
 import "../../styles/weeks/DayCell.css";

@@ -1,6 +1,6 @@
 import { api } from "./axiosInstance";
-import type { UserResponse } from "../types/dto/user/response/UserResponse";
-import type { UserUpdateRequest } from "../types/dto/user/request/UserUpdateRequest";
+import type { UserResponse } from "../types/dto/response/UserResponse";
+import type { UserUpdateRequest } from "../types/dto/request/UserUpdateRequest";
 
 export async function getUserDetails(): Promise<UserResponse> {
     const res = await api.get<UserResponse>("/v1/user");

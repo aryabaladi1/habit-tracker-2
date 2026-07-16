@@ -1,7 +1,7 @@
 import { api } from "./axiosInstance";
-import type { TaskCreateRequest } from "../types/dto/task/request/TaskCreateRequest";
-import type { TaskUpdateRequest } from "../types/dto/task/request/TaskUpdateRequest";
-import type { TaskResponse } from "../types/dto/task/response/TaskResponse";
+import type { TaskCreateRequest } from "../types/dto/request/TaskCreateRequest";
+import type { TaskUpdateRequest } from "../types/dto/request/TaskUpdateRequest";
+import type { TaskResponse } from "../types/dto/response/TaskResponse";
 
 export async function createTask(data: TaskCreateRequest): Promise<TaskResponse> {
     const res = await api.post<TaskResponse>("/v1/tasks", data);

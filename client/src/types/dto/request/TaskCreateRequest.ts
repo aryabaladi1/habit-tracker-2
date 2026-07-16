@@ -1,4 +1,4 @@
-import { TaskDifficulty } from "../../../enums/TaskDifficulty";
+import { TaskDifficulty } from "../../enums/TaskDifficulty";
 
 export interface TaskCreateRequest {
   name: string;
