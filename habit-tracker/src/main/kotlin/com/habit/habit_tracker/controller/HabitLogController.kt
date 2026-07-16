@@ -1,13 +1,11 @@
 package com.habit.habit_tracker.controller
 
-import com.habit.habit_tracker.dto.logs.request.daily.DailyHabitLogRequest
-import com.habit.habit_tracker.dto.logs.response.daily.DailyHabitLogResponse
-import com.habit.habit_tracker.dto.logs.request.weekly.WeeklyHabitLogRequest
-import com.habit.habit_tracker.dto.logs.response.weekly.WeeklyHabitLogResponse
-import com.habit.habit_tracker.dto.logs.response.FullHabitLogsForWeek
-import com.habit.habit_tracker.dto.logs.response.weekly.WeeklyHabitLogSaveResponse
+import com.habit.habit_tracker.dto.request.DailyHabitLogRequest
+import com.habit.habit_tracker.dto.response.DailyHabitLogResponse
+import com.habit.habit_tracker.dto.request.WeeklyHabitLogRequest
+import com.habit.habit_tracker.dto.response.FullHabitLogsForWeek
+import com.habit.habit_tracker.dto.response.WeeklyHabitLogSaveResponse
 import com.habit.habit_tracker.mapper.DailyHabitLogMapper
-import com.habit.habit_tracker.mapper.WeeklyHabitLogStatsMapper
 import com.habit.habit_tracker.exception.ApiRequestException
 import com.habit.habit_tracker.mapper.WeeklyHabitLogMapper
 import com.habit.habit_tracker.service.DailyHabitLogService

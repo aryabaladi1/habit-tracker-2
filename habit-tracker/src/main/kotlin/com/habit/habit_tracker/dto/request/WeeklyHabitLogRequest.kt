@@ -1,4 +1,4 @@
-package com.habit.habit_tracker.dto.logs.request.weekly
+package com.habit.habit_tracker.dto.request
 
 import jakarta.validation.constraints.Max
 import jakarta.validation.constraints.Min

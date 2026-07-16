@@ -1,4 +1,4 @@
-package com.habit.habit_tracker.dto.logs.response.weekly
+package com.habit.habit_tracker.dto.response
 
 import java.time.LocalDate
 

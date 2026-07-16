@@ -1,7 +1,7 @@
 package com.habit.habit_tracker.mapper
 
 import com.habit.habit_tracker.domain.DailyHabitLog
-import com.habit.habit_tracker.dto.logs.response.daily.DailyHabitLogResponse
+import com.habit.habit_tracker.dto.response.DailyHabitLogResponse
 
 object DailyHabitLogMapper {
     fun toDailyHabitLogResponse(log: DailyHabitLog): DailyHabitLogResponse {

@@ -1,4 +1,4 @@
-package com.habit.habit_tracker.dto.user.request
+package com.habit.habit_tracker.dto.request
 
 data class UserUpdateRequest(
     val username: String? = null,

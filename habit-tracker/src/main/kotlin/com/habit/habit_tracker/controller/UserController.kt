@@ -1,7 +1,7 @@
 package com.habit.habit_tracker.controller
 
-import com.habit.habit_tracker.dto.user.response.UserResponse
-import com.habit.habit_tracker.dto.user.request.UserUpdateRequest
+import com.habit.habit_tracker.dto.response.UserResponse
+import com.habit.habit_tracker.dto.request.UserUpdateRequest
 import com.habit.habit_tracker.mapper.UserMapper
 import com.habit.habit_tracker.service.UserService
 import jakarta.validation.Valid

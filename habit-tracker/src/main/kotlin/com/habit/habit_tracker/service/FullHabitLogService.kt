@@ -1,7 +1,7 @@
 package com.habit.habit_tracker.service
 
 import org.springframework.stereotype.Service
-import com.habit.habit_tracker.dto.logs.response.FullHabitLogsForWeek
+import com.habit.habit_tracker.dto.response.FullHabitLogsForWeek
 import com.habit.habit_tracker.mapper.FullHabitLogsForWeekMapper
 import com.habit.habit_tracker.repository.DailyHabitLogRepository
 import com.habit.habit_tracker.repository.HabitRepository

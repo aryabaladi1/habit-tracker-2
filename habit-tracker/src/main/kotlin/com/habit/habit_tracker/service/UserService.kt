@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 import org.springframework.dao.DataIntegrityViolationException
 
 import com.habit.habit_tracker.domain.User
-import com.habit.habit_tracker.dto.user.request.UserUpdateRequest
+import com.habit.habit_tracker.dto.request.UserUpdateRequest
 import com.habit.habit_tracker.exception.ApiRequestException
 import com.habit.habit_tracker.repository.UserRepository
 import com.habit.habit_tracker.security.AuthUtil

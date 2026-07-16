@@ -5,8 +5,8 @@ import com.habit.habit_tracker.constants.ErrorMessage.USER_NOT_FOUND
 import com.habit.habit_tracker.constants.ErrorMessage.INVALID_CREDENTIALS
 
 import com.habit.habit_tracker.domain.User
-import com.habit.habit_tracker.dto.auth.request.LoginRequest
-import com.habit.habit_tracker.dto.auth.request.RegisterRequest
+import com.habit.habit_tracker.dto.request.LoginRequest
+import com.habit.habit_tracker.dto.request.RegisterRequest
 import com.habit.habit_tracker.service.result.AuthResult
 import com.habit.habit_tracker.exception.ApiRequestException
 import com.habit.habit_tracker.repository.UserRepository

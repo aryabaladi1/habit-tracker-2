@@ -1,4 +1,4 @@
-package com.habit.habit_tracker.dto.habit.response
+package com.habit.habit_tracker.dto.response
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import java.time.LocalDateTime

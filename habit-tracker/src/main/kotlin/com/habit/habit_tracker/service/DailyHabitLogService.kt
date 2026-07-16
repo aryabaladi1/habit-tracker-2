@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 
 import com.habit.habit_tracker.domain.DailyHabitLog
-import com.habit.habit_tracker.dto.logs.request.daily.DailyHabitLogRequest
+import com.habit.habit_tracker.dto.request.DailyHabitLogRequest
 import com.habit.habit_tracker.events.EventPublisher
 import com.habit.habit_tracker.exception.ApiRequestException
 import com.habit.habit_tracker.repository.DailyHabitLogRepository

@@ -1,4 +1,4 @@
-package com.habit.habit_tracker.dto.task.response
+package com.habit.habit_tracker.dto.response
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.habit.habit_tracker.enums.TaskDifficulty

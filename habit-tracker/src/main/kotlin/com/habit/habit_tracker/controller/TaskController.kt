@@ -3,9 +3,9 @@ package com.habit.habit_tracker.controller
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-import com.habit.habit_tracker.dto.task.request.TaskCreateRequest
-import com.habit.habit_tracker.dto.task.response.TaskResponse
-import com.habit.habit_tracker.dto.task.request.TaskUpdateRequest
+import com.habit.habit_tracker.dto.request.TaskCreateRequest
+import com.habit.habit_tracker.dto.response.TaskResponse
+import com.habit.habit_tracker.dto.request.TaskUpdateRequest
 import com.habit.habit_tracker.service.TaskService
 import com.habit.habit_tracker.mapper.TaskMapper
 

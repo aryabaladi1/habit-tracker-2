@@ -1,8 +1,8 @@
 package com.habit.habit_tracker.controller
 
-import com.habit.habit_tracker.dto.auth.response.AuthResponse
-import com.habit.habit_tracker.dto.auth.request.LoginRequest
-import com.habit.habit_tracker.dto.auth.request.RegisterRequest
+import com.habit.habit_tracker.dto.response.AuthResponse
+import com.habit.habit_tracker.dto.request.LoginRequest
+import com.habit.habit_tracker.dto.request.RegisterRequest
 import com.habit.habit_tracker.mapper.AuthMapper
 import com.habit.habit_tracker.service.AuthService
 import jakarta.validation.Valid

@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 import com.habit.habit_tracker.domain.Task
-import com.habit.habit_tracker.dto.task.request.TaskCreateRequest
-import com.habit.habit_tracker.dto.task.request.TaskUpdateRequest
+import com.habit.habit_tracker.dto.request.TaskCreateRequest
+import com.habit.habit_tracker.dto.request.TaskUpdateRequest
 import com.habit.habit_tracker.exception.ApiRequestException
 import com.habit.habit_tracker.repository.TaskRepository
 import com.habit.habit_tracker.repository.UserRepository

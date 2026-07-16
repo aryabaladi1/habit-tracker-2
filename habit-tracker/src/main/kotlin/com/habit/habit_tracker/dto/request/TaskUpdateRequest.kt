@@ -1,4 +1,4 @@
-package com.habit.habit_tracker.dto.task.request
+package com.habit.habit_tracker.dto.request
 
 import com.habit.habit_tracker.enums.TaskDifficulty
 import com.habit.habit_tracker.enums.TaskStatus

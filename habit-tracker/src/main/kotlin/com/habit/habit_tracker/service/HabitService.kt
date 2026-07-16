@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 
 import com.habit.habit_tracker.domain.Habit
-import com.habit.habit_tracker.dto.habit.request.HabitCreateRequest
-import com.habit.habit_tracker.dto.habit.request.HabitUpdateRequest
+import com.habit.habit_tracker.dto.request.HabitCreateRequest
+import com.habit.habit_tracker.dto.request.HabitUpdateRequest
 import com.habit.habit_tracker.exception.ApiRequestException
 import com.habit.habit_tracker.repository.HabitRepository
 import com.habit.habit_tracker.repository.UserRepository

@@ -4,7 +4,7 @@ import com.habit.habit_tracker.domain.DailyHabitLog
 import com.habit.habit_tracker.domain.WeeklyHabitLog
 import com.habit.habit_tracker.domain.Habit
 
-import com.habit.habit_tracker.dto.logs.response.FullHabitLogsForWeek
+import com.habit.habit_tracker.dto.response.FullHabitLogsForWeek
 
 
 object FullHabitLogsForWeekMapper {
