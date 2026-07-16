@@ -6,11 +6,11 @@
 
     height: 72px;
 
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
 
-    padding: 0 48px;
+    padding: 0 38px;
 
     background: #0f0f10;
 
@@ -21,7 +21,20 @@
     z-index: 1000;
 }
 
+.navbar-links {
+    display: flex;
+    gap: 42px;
+}
+
+.navbar-logo {
+    justify-self: start;
+}
+
 .navbar-logo a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
     color: #57B9FF;
     text-decoration: none;
 
@@ -29,6 +42,16 @@
     font-weight: 700;
 
     letter-spacing: .5px;
+    transition: .2s ease;
+}
+
+.navbar-logo a:hover span {
+    color: #57B9FF;
+}
+
+.navbar-logo-icon {
+    width: 30px;
+    height: 30px;
 }
 
 .navbar-user a {
@@ -75,9 +98,10 @@
 
 .navbar-user {
     display: flex;
+    justify-content: flex-end;
     align-items: center;
 
     cursor: pointer;
 
     color: white;
-}
+}   

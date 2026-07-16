@@ -1,22 +1,30 @@
 .day-cell {
-    transition: background-color 0.2s ease;
+    transition:
+        background 250ms ease,
+        box-shadow 250ms ease,
+        transform 150ms ease;
+
     padding: 2px !important;
 }
 
 /* Progress colors */
 
-.goal-low {
-    background: rgba(255, 180, 0, 0.08);
+.progress-0 {
+    color: #ff6b6b; /* nothing */
 }
 
-.goal-medium {
-    background: rgba(255, 200, 0, 0.15);
+.progress-1 {
+    color: #ff8585; /* low */
 }
 
-.goal-good {
-    background: rgba(100, 220, 120, 0.18);
+.progress-2 {
+    color: #9affbc; /* decent progress */
 }
 
-.goal-complete {
-    background: rgba(70, 255, 110, 0.28);
+.progress-3 {
+    color: #63e891; /* goal reached */
+}
+
+.progress-4 {
+    color: #49d17d; /* exceeded */
 }

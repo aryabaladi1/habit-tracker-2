@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { UserCircle2 } from "lucide-react";
+import oakTree from "../../assets/svg/oaktree.svg";
 
 import "../../styles/layout/Navbar.css";
 
@@ -9,7 +10,12 @@ export default function Navbar() {
 
       <div className="navbar-logo">
         <Link to="/">
-          Eiki
+          <img 
+            src={oakTree} 
+            alt="Oak tree"
+            className="navbar-logo-icon"
+          />
+          <span>Eiki</span>
         </Link>
       </div>
 

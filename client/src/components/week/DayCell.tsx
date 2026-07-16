@@ -30,43 +30,35 @@ export default function DayCell({
   const minutes = dailyLog?.minutesDone ?? 0;
 
   function getProgressClass() {
-
     if (!dailyGoal || dailyGoal <= 0) {
       return "";
     }
-
+  
     const ratio = minutes / dailyGoal;
-
-    if (ratio >= 1)
-      return "goal-complete";
-
-    if (ratio >= 0.75)
-      return "goal-good";
-
-    if (ratio >= 0.5)
-      return "goal-medium";
-
-    if (ratio > 0)
-      return "goal-low";
-
-    return "";
+  
+    if (ratio === 0) return "progress-0";
+    if (ratio < 0.5) return "progress-1";
+    if (ratio < 1) return "progress-2";
+    if (ratio < 1.5) return "progress-3";
+    return "progress-4";
   }
 
   return (
-    <td className={`day-cell ${getProgressClass()}`}>
+    <td className={`day-cell`}>
 
-    <EditableNumberCell
-        mode="time"
-        value={dailyLog?.minutesDone}
-        onSave={(minutes) =>
-            onMinutesChange(
-                habitId,
-                date,
-                minutes
-            ) 
-        }
-    />
-
+      <div className={getProgressClass()}>
+        <EditableNumberCell
+            mode="time"
+            value={dailyLog?.minutesDone}
+            onSave={(minutes) =>
+                onMinutesChange(
+                    habitId,
+                    date,
+                    minutes
+                ) 
+            }
+        />
+      </div>
     </td>
   );
 }
