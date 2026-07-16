@@ -1,7 +1,7 @@
 import "../../styles/weeks/WeekHeader.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { formatDate } from "../../utils/date";
+import { formatMonthDay } from "../../utils/date";
 
 interface WeekHeaderProps {
   weekNumber: number;
@@ -36,9 +36,9 @@ export default function WeekHeader({
       </button>
 
         <div className="week-range">
-          {formatDate(startDate)}
+          {formatMonthDay(startDate)}
           {" - "}
-          {formatDate(endDate)}
+          {formatMonthDay(endDate)}
         </div>
 
         <button className="week-nav-button" onClick={onNextWeek}>

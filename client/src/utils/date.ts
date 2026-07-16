@@ -6,7 +6,7 @@ export function formatLocalDate(date: Date): string {
     return `${year}-${month}-${day}`;
 }
 
-export function formatDate(date: Date) {
+export function formatMonthDay(date: Date) {
     return date.toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
