@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import "../../styles/weeks/EditableNumberCell.css";
+import { minutesToTime } from "../../utils/time";
 
 interface EditableNumberCellProps {
     value?: number | null;
@@ -19,15 +20,6 @@ export default function EditableNumberCell({
     const [draft, setDraft] = useState("");
 
     const inputRef = useRef<HTMLInputElement>(null);
-
-    function minutesToTime(minutes: number): string {
-        const hours = Math.floor(minutes / 60);
-        const mins = minutes % 60;
-
-        return `${hours.toString().padStart(2, "0")}:${mins
-            .toString()
-            .padStart(2, "0")}`;
-    }
 
     function parseTime(text: string): number | null {
 

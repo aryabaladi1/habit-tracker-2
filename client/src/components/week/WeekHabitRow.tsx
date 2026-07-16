@@ -78,7 +78,7 @@ export default function WeekHabitRow({
       })}
 
       <td className="total-cell">
-        {minutesToTime(weeklyLog?.minutesDone ?? 0, { includeSign: false })}
+        {minutesToTime(weeklyLog?.minutesDone ?? 0)}
       </td>
 
       <td

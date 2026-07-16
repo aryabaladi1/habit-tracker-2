@@ -1,6 +1,7 @@
 import "../../styles/weeks/WeekHeader.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { formatDate } from "../../utils/date";
 
 interface WeekHeaderProps {
   weekNumber: number;
@@ -17,13 +18,6 @@ export default function WeekHeader({
   onPreviousWeek,
   onNextWeek,
 }: WeekHeaderProps) {
-
-  function formatDate(date: Date) {
-    return date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-    });
-  }
 
   return (
     <div className="week-header">

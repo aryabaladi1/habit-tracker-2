@@ -12,7 +12,7 @@ import {
 import type { FullHabitLogsForWeek } from "../types/dto/logs/response/FullHabitLogsForWeek";
 
 import "../styles/weeks/WeekPage.css";
-import { formatLocalDate } from "../utils/date";
+import { formatLocalDate, getMonday, getWeekDates, getWeekNumber } from "../utils/date";
 
 export default function WeekPage() {
   const [weekData, setWeekData] = useState<FullHabitLogsForWeek[]>([]);
@@ -21,26 +21,6 @@ export default function WeekPage() {
   const [error, setError] = useState("");
 
   const [currentMonday, setCurrentMonday] = useState(getMonday(new Date()));
-
-  function getMonday(date: Date) {
-    const d = new Date(date);
-
-    const day = d.getDay();
-    const diff = day === 0 ? -6 : 1 - day;
-
-    d.setDate(d.getDate() + diff);
-    d.setHours(0, 0, 0, 0);
-
-    return d;
-  }
-
-  function getWeekDates(start: Date) {
-    return Array.from({ length: 7 }, (_, i) => {
-      const d = new Date(start);
-      d.setDate(start.getDate() + i);
-      return d;
-    });
-  }
 
   const dates = getWeekDates(currentMonday);
 
@@ -122,17 +102,6 @@ export default function WeekPage() {
     const d = new Date(currentMonday);
     d.setDate(d.getDate() + 7);
     setCurrentMonday(d);
-  }
-
-  function getWeekNumber(date: Date) {
-    const target = new Date(date.valueOf());
-
-    const firstThursday = new Date(target.getFullYear(), 0, 4);
-
-    const diff =
-      target.getTime() - getMonday(firstThursday).getTime();
-
-    return 1 + Math.round(diff / (7 * 24 * 60 * 60 * 1000));
   }
 
   if (loadingInitial) {
