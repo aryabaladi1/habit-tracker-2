@@ -1,12 +1,10 @@
 import { Route, Routes,Navigate  } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import DashboardPage from './pages/DashboardPage';
 import AppLayout from './AppLayout';
 import ProfilePage from './pages/ProfilePage';
 import HabitsPage from './pages/HabitsPage';
 import TasksPage from './pages/TasksPage';
-import WeeksPage from './pages/WeeksPage';
 
 import { useAuth } from './context/AuthContext';
 import WeekPage from './pages/WeekPage';
@@ -32,7 +30,6 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/habits" element={<HabitsPage />} />
           <Route path="/tasks" element={<TasksPage />} />
-          <Route path="/weeks" element={<WeeksPage />} />
         </Route>
       </Routes>
     </div>
