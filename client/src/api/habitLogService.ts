@@ -5,6 +5,8 @@ import type { DailyHabitLogResponse } from "../types/dto/response/DailyHabitLogR
 import type { UpdateWeeklyGoalRequest } from "../types/dto/request/UpdateWeeklyGoalRequest";
 import type { WeeklyHabitLogResponse } from "../types/dto/response/WeeklyHabitLogResponse";
 import type { FullHabitLogsForWeek } from "../types/dto/response/FullHabitLogsForWeek";
+import type { UpdateWeeklyNotesRequest } from "../types/dto/request/UpdateWeeklyNotesRequest";
+import type { UpdateWeeklyNotesResponse } from "../types/dto/response/UpdateWeeklyNotesResponse";
 
 export async function saveDailyHabitLog(
     habitId: number,
@@ -19,6 +21,14 @@ export async function updateWeeklyGoal(
     data: UpdateWeeklyGoalRequest
 ): Promise<WeeklyHabitLogResponse> {
     const res = await api.put<WeeklyHabitLogResponse>(`/v1/logs/weekly/${habitId}/goal`, data);
+    return res.data;
+}
+
+export async function updateWeeklyNotes(
+    habitId: number,
+    data: UpdateWeeklyNotesRequest
+): Promise<UpdateWeeklyNotesResponse> {
+    const res = await api.put<UpdateWeeklyNotesResponse>(`/v1/logs/weekly/${habitId}/notes`, data);
     return res.data;
 }
 

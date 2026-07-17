@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service
 
 import com.habit.habit_tracker.domain.WeeklyHabitLog
 import com.habit.habit_tracker.dto.request.UpdateWeeklyGoalRequest
+import com.habit.habit_tracker.dto.request.UpdateWeeklyNotesRequest
 import com.habit.habit_tracker.exception.ApiRequestException
 import com.habit.habit_tracker.repository.HabitRepository
 import com.habit.habit_tracker.repository.WeeklyHabitLogRepository
@@ -56,6 +57,43 @@ class WeeklyHabitLogService(
                 }
 
         weeklyLog.weeklyGoal = request.weeklyGoal
+
+        return weeklyHabitLogRepository.save(weeklyLog)
+    }
+
+    fun updateWeeklyNotes(
+        habitId: Long,
+        request: UpdateWeeklyNotesRequest
+    ): WeeklyHabitLog {
+
+        val user = authUtil.getAuthenticatedUser()
+
+        val habit = habitRepository.findByIdAndUserId(
+            habitId,
+            user.id!!
+        )
+            .orElseThrow {
+                ApiRequestException(
+                    HABIT_NOT_FOUND,
+                    HttpStatus.NOT_FOUND
+                )
+            }
+
+        val weeklyLog =
+            weeklyHabitLogRepository.findByHabitAndDate(
+                habitId,
+                request.weekStart,
+                request.weekEnd
+            )
+                .orElseGet {
+                    WeeklyHabitLog(
+                        habit = habit,
+                        weekStart = request.weekStart,
+                        weekEnd = request.weekEnd
+                    )
+                }
+
+        weeklyLog.notes = request.notes
 
         return weeklyHabitLogRepository.save(weeklyLog)
     }

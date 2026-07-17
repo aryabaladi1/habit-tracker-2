@@ -3,8 +3,10 @@ package com.habit.habit_tracker.controller
 import com.habit.habit_tracker.dto.request.DailyHabitLogRequest
 import com.habit.habit_tracker.dto.response.DailyHabitLogResponse
 import com.habit.habit_tracker.dto.request.UpdateWeeklyGoalRequest
+import com.habit.habit_tracker.dto.request.UpdateWeeklyNotesRequest
 import com.habit.habit_tracker.dto.response.FullHabitLogsForWeek
 import com.habit.habit_tracker.dto.response.UpdateWeeklyGoalResponse
+import com.habit.habit_tracker.dto.response.UpdateWeeklyNotesResponse
 import com.habit.habit_tracker.mapper.DailyHabitLogMapper
 import com.habit.habit_tracker.exception.ApiRequestException
 import com.habit.habit_tracker.mapper.WeeklyHabitLogMapper
@@ -44,6 +46,19 @@ class HabitLogController(
         val weeklyHabitLog = weeklyHabitLogService.updateWeeklyGoal(habitId, request)
         val response =
             WeeklyHabitLogMapper.toUpdateWeeklyGoalResponse(
+                weeklyHabitLog
+            )
+        return ResponseEntity.ok(response)
+    }
+
+    @PutMapping("/weekly/{habitId}/notes")
+    fun updateWeeklyNotes(
+        @PathVariable habitId: Long,
+        @Valid @RequestBody request: UpdateWeeklyNotesRequest
+    ): ResponseEntity<UpdateWeeklyNotesResponse> {
+        val weeklyHabitLog = weeklyHabitLogService.updateWeeklyNotes(habitId, request)
+        val response =
+            WeeklyHabitLogMapper.toUpdateWeeklyNotesResponse(
                 weeklyHabitLog
             )
         return ResponseEntity.ok(response)
