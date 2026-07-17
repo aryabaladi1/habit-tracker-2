@@ -5,7 +5,6 @@ export interface WeeklyHabitLogResponse {
     dailyGoal?: number | null;
     minutesDone: number;
     weeklyImbalance?: number | null;
-    notes?: string | null;
     weekStart: string;
     weekEnd: string;
 }

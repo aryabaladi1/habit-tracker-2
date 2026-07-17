@@ -11,9 +11,6 @@ data class DailyHabitLogRequest(
     @field:Max(value = 1440, message = "Minutes done cannot exceed 1440 per day")
     val minutesDone: Int? = null,
 
-    @field:Size(max = 200, message = "Notes cannot exceed 200 characters")
-    val notes: String? = null,
-
     @field:NotNull(message = "Date is required")
     val date: LocalDate
 )

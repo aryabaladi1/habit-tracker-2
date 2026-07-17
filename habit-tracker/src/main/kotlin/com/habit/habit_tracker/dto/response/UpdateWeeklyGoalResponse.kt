@@ -6,7 +6,6 @@ data class UpdateWeeklyGoalResponse (
     val id: Long,
     val habitId: Long,
     val weeklyGoal: Int?,
-    val notes: String?,
     val weekStart: LocalDate,
     val weekEnd: LocalDate
 )

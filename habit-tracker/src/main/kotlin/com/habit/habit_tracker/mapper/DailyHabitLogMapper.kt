@@ -8,7 +8,6 @@ object DailyHabitLogMapper {
         return DailyHabitLogResponse(
             habitId = log.habit.id!!,
             minutesDone = log.minutesDone,
-            notes = log.notes,
             date = log.date
         )
     }

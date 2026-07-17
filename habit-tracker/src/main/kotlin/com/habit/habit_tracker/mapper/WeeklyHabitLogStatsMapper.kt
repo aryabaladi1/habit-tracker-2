@@ -27,8 +27,6 @@ object WeeklyHabitLogStatsMapper {
                         minutesDone - goal
                     },
 
-                notes = it.notes,
-
                 weekStart = it.weekStart,
                 weekEnd = it.weekEnd
             )

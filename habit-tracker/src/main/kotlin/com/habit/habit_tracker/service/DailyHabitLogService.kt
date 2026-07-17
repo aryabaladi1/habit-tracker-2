@@ -34,7 +34,6 @@ class DailyHabitLogService(
         val existingLog = dailyHabitLogRepository.findByHabitAndDate(habitId, request.date).orElse(null)
 
         val dhl = existingLog?.apply {
-            request.notes?.let { notes = it }
             request.minutesDone?.let { newMinutes -> // not using "it" to avoid confusion 
                 val minutesDoneChange = newMinutes - minutesDone // calculating the change for the event
                 minutesDone = newMinutes // updating the dhl minutesDone
@@ -47,8 +46,7 @@ class DailyHabitLogService(
         } ?: DailyHabitLog(
             habit = habit,
             date = request.date,
-            minutesDone = request.minutesDone ?: 0,
-            notes = request.notes
+            minutesDone = request.minutesDone ?: 0
         ).also {
             habit.minutesTotal += it.minutesDone
             habitRepository.save(habit)

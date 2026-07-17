@@ -11,7 +11,6 @@ data class WeeklyHabitLogResponse(
     val dailyGoal: Int?,
     val minutesDone: Int,
     val weeklyImbalance: Int?,
-    val notes: String?,
     val weekStart: LocalDate,
     val weekEnd: LocalDate
 )

@@ -29,10 +29,6 @@ data class DailyHabitLog(
     @field:Max(1440)
     var minutesDone: Int = 0,
 
-    @Column(name = "notes")
-    @field:Size(max = 200)
-    var notes: String? = null,
-
     @Column(name = "date", nullable = false)
     val date: LocalDate,
 

@@ -7,6 +7,5 @@ import java.time.LocalDate
 data class DailyHabitLogResponse(
     val habitId: Long,
     val minutesDone: Int,
-    val notes: String?,
     val date: LocalDate
 )

@@ -25,10 +25,6 @@ data class WeeklyHabitLog(
     @field:Max(10080)
     var weeklyGoal: Int? = null,
 
-    @Column(name = "notes")
-    @field:Size(max = 200)
-    var notes: String? = null,
-
     @Column(name = "start_date", nullable = false)
     val weekStart: LocalDate,
 
