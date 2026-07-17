@@ -1,12 +1,12 @@
 .profile-container {
 min-height: 100vh;
-background: #0f1115;
+background: #000000;
 
 display: flex;
 justify-content: center;
 align-items: center;
 
-padding: 2rem;
+padding: 110px;
 
 color: #f2f2f2;
 font-family: "Inter", system-ui, sans-serif;
