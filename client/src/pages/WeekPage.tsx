@@ -110,7 +110,7 @@ export default function WeekPage() {
             Loading...
         </div>
     );
-}
+  }
 
   return (
     <div className="week-page">

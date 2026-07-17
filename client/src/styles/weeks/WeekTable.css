@@ -48,3 +48,13 @@
 
     border-bottom: 1px solid #57B9FF;
 }
+
+.current-day-column,
+.current-day-cell {
+    background: rgba(87,185,255,.08);
+}
+
+.current-day-column {
+    color: #57B9FF;
+    font-weight: 700;
+}
