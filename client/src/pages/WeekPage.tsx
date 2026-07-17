@@ -12,7 +12,7 @@ import {
 import type { FullHabitLogsForWeek } from "../types/dto/response/FullHabitLogsForWeek";
 
 import "../styles/weeks/WeekPage.css";
-import { formatLocalDate, getMonday, getWeekDates, getWeekNumber } from "../utils/date";
+import { formatLocalDate, getMonday, getWeekDates, getISOWeek, getMondayOfISOWeek, getISOYear } from "../utils/date";
 
 export default function WeekPage() {
   const [weekData, setWeekData] = useState<FullHabitLogsForWeek[]>([]);
@@ -20,7 +20,10 @@ export default function WeekPage() {
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState("");
 
+  const [showWeekSelector, setShowWeekSelector] = useState(false);
   const [currentMonday, setCurrentMonday] = useState(getMonday(new Date()));
+
+  const currentDate = new Date();
 
   const dates = getWeekDates(currentMonday);
 
@@ -113,18 +116,38 @@ export default function WeekPage() {
     <div className="week-page">
 
       <WeekHeader
-        weekNumber={getWeekNumber(currentMonday)}
-        startDate={dates[0]}
-        endDate={dates[6]}
-        onPreviousWeek={previousWeek}
-        onNextWeek={nextWeek}
-      />
+          weekNumber={getISOWeek(currentMonday)}
+          startDate={dates[0]}
+          endDate={dates[6]}
+      
+          currentYear={getISOYear(currentDate)}
+          currentWeek={getISOWeek(currentDate)}
 
-      {error && (
-        <div className="error-message">
-          {error}
-        </div>
-      )}
+          displayedYear={getISOYear(currentMonday)}
+          displayedWeek={getISOWeek(currentMonday)}
+
+          showWeekSelector={showWeekSelector}
+
+          onOpenWeekSelector={() =>
+              setShowWeekSelector(true)
+          }
+
+          onCloseWeekSelector={() =>
+              setShowWeekSelector(false)
+          }
+
+          onPreviousWeek={previousWeek}
+          onNextWeek={nextWeek}
+
+          onWeekSelected={(year, week) => {
+
+            setCurrentMonday(
+                getMondayOfISOWeek(year, week)
+            );
+        
+            setShowWeekSelector(false);
+        }}
+      />
 
       <WeekTable
         habits={weekData}
