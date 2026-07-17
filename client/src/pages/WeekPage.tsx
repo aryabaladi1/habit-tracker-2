@@ -47,7 +47,7 @@ export default function WeekPage() {
       setWeekData(data);
     } catch (err) {
       console.error(err);
-      setError("Failed to load week.");
+      showError("Failed to load week.");
     } finally {
       setLoadingInitial(false);
       setRefreshing(false);
@@ -72,7 +72,7 @@ export default function WeekPage() {
       loadWeek();
     } catch (err) {
       console.error(err);
-      setError("Failed to save daily log.");
+      showError("Failed to save log.");
     }
   }
 
@@ -90,7 +90,7 @@ export default function WeekPage() {
       loadWeek();
     } catch (err) {
       console.error(err);
-      setError("Failed to save weekly goal.");
+      showError("Failed to set weekly goal.");
     }
   }
 
@@ -106,6 +106,14 @@ export default function WeekPage() {
     setCurrentMonday(d);
   }
 
+  function showError(message: string) {
+    setError(message);
+  
+    setTimeout(() => {
+      setError("");
+    }, 4000);
+  }
+
   {loadingInitial ? (
       <WeekTableSkeleton />
   ) : (
@@ -119,6 +127,12 @@ export default function WeekPage() {
 
   return (
     <div className="week-page">
+
+      {error && (
+        <div className="error-toast">
+          {error}
+        </div>
+      )}
 
       <WeekHeader
           weekNumber={getISOWeek(currentMonday)}
