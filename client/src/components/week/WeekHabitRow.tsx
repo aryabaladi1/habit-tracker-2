@@ -32,6 +32,15 @@ export default function WeekHabitRow({
 
   const weeklyLog = habitData.weeklyHabitLog;
 
+  function getWeeklyImbalanceClass() {
+    const imbalance = weeklyLog?.weeklyImbalance ?? 0;
+  
+    if (imbalance > 0) return "positive";
+    if (imbalance < 0) return "negative";
+  
+    return "";
+  }
+
   return (
     <tr className="week-habit-row">
 
@@ -82,11 +91,7 @@ export default function WeekHabitRow({
       </td>
 
       <td
-        className={
-          (weeklyLog?.weeklyImbalance ?? 0) >= 0
-            ? "positive"
-            : "negative"
-        }
+        className={getWeeklyImbalanceClass()}
       >
         {minutesToTime(weeklyLog?.weeklyImbalance ?? 0, { includeSign: true })}
       </td>
