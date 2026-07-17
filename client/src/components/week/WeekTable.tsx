@@ -27,6 +27,10 @@ export default function WeekTable({
   onWeeklyGoalChange,
 }: WeekTableProps) {
 
+  const today = new Date();
+
+  today.setHours(0, 0, 0, 0);
+
   return (
     <div className="week-table-container">
 
@@ -40,16 +44,26 @@ export default function WeekTable({
 
             <th>Goal</th>
 
-            {dates.map((date) => (
-              <th
-                key={date.toISOString()}
-                className="day-column"
-              >
-                {date.toLocaleDateString("en-US", {
-                  weekday: "short",
-                })}
-              </th>
-            ))}
+            {dates.map((date) => {
+                const headerDate = new Date(date);
+                headerDate.setHours(0, 0, 0, 0);
+
+                const isToday =
+                    headerDate.getTime() === today.getTime();
+
+                return (
+                    <th
+                        key={date.toISOString()}
+                        className={`day-column ${
+                            isToday ? "current-day-column" : ""
+                        }`}
+                    >
+                        {date.toLocaleDateString("en-US", {
+                            weekday: "short",
+                        })}
+                    </th>
+                );
+            })}
 
             <th>Total</th>
 

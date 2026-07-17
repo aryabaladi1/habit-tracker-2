@@ -42,3 +42,9 @@
 .week-table tbody tr:hover {
     background: rgba(255,255,255,0.015);
 }
+
+.week-table th.current-day-column {
+    color: #57B9FF;
+
+    border-bottom: 1px solid #57B9FF;
+}
