@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import WeekHeader from "../components/week/WeekHeader";
 import WeekTable from "../components/week/WeekTable";
 
+import WeekTableSkeleton from "../components/week/WeekTableSkeleton";
+
 import {
   getFullHabitLogsForWeek,
   saveDailyHabitLog,
@@ -104,13 +106,16 @@ export default function WeekPage() {
     setCurrentMonday(d);
   }
 
-  if (loadingInitial) {
-    return (
-        <div className="loading-page">
-            Loading...
-        </div>
-    );
-  }
+  {loadingInitial ? (
+      <WeekTableSkeleton />
+  ) : (
+      <WeekTable
+          habits={weekData}
+          dates={dates}
+          onDailyMinutesChange={handleDailyMinutesChange}
+          onWeeklyGoalChange={handleupdateWeeklyGoal}
+      />
+  )}
 
   return (
     <div className="week-page">
