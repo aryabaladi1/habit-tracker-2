@@ -13,6 +13,16 @@ export async function updateHabit(habitId: number, data: HabitUpdateRequest): Pr
     return res.data;
 }
 
+export async function archiveHabit(habitId: number): Promise<HabitResponse> {
+    const res = await api.patch<HabitResponse>(`/v1/habits/${habitId}/archive`, undefined);
+    return res.data;
+}
+
+export async function unarchiveHabit(habitId: number): Promise<HabitResponse> {
+    const res = await api.patch<HabitResponse>(`/v1/habits/${habitId}/unarchive`, undefined);
+    return res.data;
+}
+
 export async function getHabit(habitId: number): Promise<HabitResponse> {
     const res = await api.get<HabitResponse>(`/v1/habits/${habitId}`);
     return res.data;
