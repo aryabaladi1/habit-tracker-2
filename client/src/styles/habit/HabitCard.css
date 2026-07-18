@@ -1,0 +1,45 @@
+.habit-card {
+    background: #1a1d23;
+    border: 1px solid #2b2f36;
+    border-radius: 1rem;
+    padding: 1.25rem;
+
+    transition:
+        transform .15s ease,
+        border-color .2s ease;
+}
+
+.habit-card:hover {
+    transform: translateY(-2px);
+    border-color: #3b82f6;
+}
+
+.habit-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 1rem;
+}
+
+.habit-card-top h2 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.habit-card-top span {
+    color: #60a5fa;
+    font-size: .95rem;
+}
+
+.habit-card p {
+    color: #d4d4d8;
+    line-height: 1.5;
+}
+
+.habit-meta {
+    margin-top: 1rem;
+
+    color: #9ca3af;
+    font-size: .85rem;
+}
