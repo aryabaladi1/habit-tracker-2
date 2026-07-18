@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { createHabit, getAllHabits, } from "../api/habitService";
+import { createHabit, getAllHabits, updateHabit, archiveHabit } from "../api/habitService";
 
 import type { HabitResponse } from "../types/dto/response/HabitResponse";
 
@@ -18,10 +18,11 @@ export default function HabitsPage() {
 
   const [habits, setHabits] = useState<HabitResponse[]>([]);
 
-  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [editingHabit, setEditingHabit] = useState<HabitResponse | null>(null);
 
   const [loading, setLoading] = useState(true);
-  const [creating, setCreating] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState<
@@ -44,39 +45,106 @@ export default function HabitsPage() {
     }
   }
 
-  async function handleCreateHabit(request: HabitCreateRequest) {
+  async function handleSaveHabit(
+    request: HabitCreateRequest
+) {
+
     setError("");
     setFieldErrors({});
 
     try {
-      setCreating(true);
 
-      const newHabit = await createHabit(request);
+        setSaving(true);
 
-      setHabits((prev) => [
-        newHabit,
-        ...prev,
-      ]);
+        if (editingHabit) {
 
-      setShowCreateModal(false);
+            const updated = await updateHabit(
+                editingHabit.id,
+                request
+            );
+
+            setHabits(prev =>
+                prev.map(h =>
+                    h.id === updated.id
+                        ? updated
+                        : h
+                )
+            );
+
+        } else {
+
+            const created =
+                await createHabit(request);
+
+            setHabits(prev => [
+                created,
+                ...prev,
+            ]);
+
+        }
+
+        setShowModal(false);
+        setEditingHabit(null);
+
     } catch (err) {
-      const error = err as AxiosError<ApiErrorResponse>;
-      const data = error.response?.data;
 
-      if (!data) {
-        setError("Failed to create habit.");
-        return;
-      }
+        const error =
+            err as AxiosError<ApiErrorResponse>;
 
-      if (data.errors && Object.keys(data.errors).length > 0) {
-        setFieldErrors(data.errors);
-        setError("");
-      } else {
-        setError(data.message);
-      }
+        const data =
+            error.response?.data;
+
+        if (!data) {
+            setError("Failed to save habit.");
+            return;
+        }
+
+        if (
+            data.errors &&
+            Object.keys(data.errors).length > 0
+        ) {
+
+            setFieldErrors(data.errors);
+
+        } else {
+
+            setError(data.message);
+
+        }
+
     } finally {
-      setCreating(false);
+
+        setSaving(false);
+
     }
+
+  }
+
+  async function handleArchiveHabit(
+    habit: HabitResponse
+) {
+
+    try {
+
+        const archived =
+            await archiveHabit(habit.id);
+
+        setHabits(prev =>
+            prev.map(h =>
+                h.id === archived.id
+                    ? archived
+                    : h
+            )
+        );
+
+    } catch {
+
+        setError(
+            "Failed to archive habit."
+        );
+
+    }
+
   }
 
   return (
@@ -97,9 +165,12 @@ export default function HabitsPage() {
           <button
               className="add-habit-button"
               onClick={() => {
-                  setFieldErrors({});
-                  setError("");
-                  setShowCreateModal(true);
+                setEditingHabit(null);
+            
+                setFieldErrors({});
+                setError("");
+            
+                setShowModal(true);
               }}
           >
               +
@@ -107,18 +178,20 @@ export default function HabitsPage() {
 
       </div>
 
-      <HabitModal
-          open={showCreateModal}
-          creating={creating}
+        <HabitModal
+          open={showModal}
+          habit={editingHabit ?? undefined}
+          saving={saving}
           error={error}
           fieldErrors={fieldErrors}
           onClose={() => {
-              setShowCreateModal(false);
+              setShowModal(false);
+              setEditingHabit(null);
               setError("");
               setFieldErrors({});
           }}
-          onCreate={handleCreateHabit}
-      />
+          onSave={handleSaveHabit}
+        />
 
         {loading ? (
           <p className="habits-loading">
@@ -132,8 +205,17 @@ export default function HabitsPage() {
           <div className="habits-grid">
               {habits.map((habit) => (
                   <HabitCard
-                      key={habit.id}
-                      habit={habit}
+                    key={habit.id}
+                    habit={habit}
+                    onEdit={(habit) => {
+                        setEditingHabit(habit);
+                
+                        setFieldErrors({});
+                        setError("");
+                
+                        setShowModal(true);
+                    }}
+                    onArchive={handleArchiveHabit}
                   />
               ))}
           </div>

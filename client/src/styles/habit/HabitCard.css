@@ -43,3 +43,43 @@
     color: #9ca3af;
     font-size: .85rem;
 }
+
+.habit-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.icon-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 34px;
+    height: 34px;
+
+    background: transparent;
+
+    border: none;
+    border-radius: 8px;
+
+    color: #9ca3af;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.icon-button:hover {
+    background: #2b2f36;
+    color: white;
+}
+
+.icon-button.danger:hover {
+    color: #ef4444;
+}
+
+.habit-time {
+    color: #60a5fa;
+    font-size: .95rem;
+    margin-bottom: 1rem;
+}

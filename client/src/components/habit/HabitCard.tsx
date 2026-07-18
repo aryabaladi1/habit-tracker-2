@@ -1,4 +1,5 @@
 import type { HabitResponse } from "../../types/dto/response/HabitResponse";
+import { Pencil, Archive } from "lucide-react";
 
 import "../../styles/habit/HabitCard.css";
 import { minutesToTime } from "../../utils/time";
@@ -12,27 +13,38 @@ interface HabitCardProps {
 
 export default function HabitCard({
     habit,
+    onEdit,
+    onArchive
 }: HabitCardProps) {
     return (
         <div className="habit-card">
 
             <div className="habit-card-top">
 
-                <h2>{habit.name}</h2>
+            <h2>{habit.name}</h2>
 
-                <span>
-                    {minutesToTime(habit.minutesTotal)} min
-                </span>
+            <div className="habit-actions">
+
+                <button
+                    className="icon-button"
+                    onClick={() => onEdit?.(habit)}
+                >
+                    <Pencil size={18}/>
+                </button>
+
+                <button
+                    className="icon-button danger"
+                    onClick={() => onArchive?.(habit)}
+                >
+                    <Archive size={18}/>
+                </button>
 
             </div>
 
-            <p>
-                {habit.description || "No description."}
-            </p>
+            </div>
 
-            <div className="habit-meta">
-                Created{" "}
-                {new Date(habit.createdAt).toLocaleDateString()}
+            <div className="habit-time">
+            {minutesToTime(habit.minutesTotal)}
             </div>
 
         </div>

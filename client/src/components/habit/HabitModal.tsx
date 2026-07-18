@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 
 import "../../styles/habit/HabitModal.css";
 import { HabitCreateRequest } from "../../types/dto/request/HabitCreateRequest";
+import { HabitResponse } from "../../types/dto/response/HabitResponse";
 
 interface HabitModalProps {
     open: boolean;
-    creating: boolean;
+
+    habit?: HabitResponse;
+
+    saving: boolean;
 
     error: string;
 
@@ -13,29 +17,33 @@ interface HabitModalProps {
 
     onClose: () => void;
 
-    onCreate: (
+    onSave: (
         request: HabitCreateRequest
     ) => Promise<void>;
 }
 
 export default function HabitModal({
     open,
-    creating,
+    habit,
+    saving,
     error,
     fieldErrors,
     onClose,
-    onCreate,
+    onSave,
 }: HabitModalProps) {
+    const editing = habit !== undefined;
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
 
     useEffect(() => {
-        if (open) {
-            setName("");
-            setDescription("");
+        if (!open) {
+            return;
         }
-    }, [open]);
+    
+        setName(habit?.name ?? "");
+        setDescription(habit?.description ?? "");
+    }, [habit, open]);
 
     if (!open) {
         return null;
@@ -46,11 +54,10 @@ export default function HabitModal({
     ) {
         e.preventDefault();
 
-        await onCreate({
+        await onSave({
             name,
-            description
-        }
-        );
+            description,
+        });
     }
 
     return (
@@ -62,7 +69,9 @@ export default function HabitModal({
                 className="habit-modal"
                 onClick={(e) => e.stopPropagation()}
             >
-                <h2>Create Habit</h2>
+                <h2>
+                    {editing ? "Edit Habit" : "Create Habit"}
+                </h2>
 
                 <form onSubmit={handleSubmit}>
 
@@ -134,11 +143,13 @@ export default function HabitModal({
                         <button
                             type="submit"
                             className="create-button"
-                            disabled={creating}
+                            disabled={saving}
                         >
-                            {creating
-                                ? "Creating..."
-                                : "Create"}
+                            {saving
+                                ? "Saving..."
+                                : editing
+                                    ? "Save"
+                                    : "Create"}
                         </button>
 
                     </div>
