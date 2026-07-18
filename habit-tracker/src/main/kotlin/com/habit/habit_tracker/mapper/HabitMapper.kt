@@ -11,6 +11,8 @@ object HabitMapper {
             name = habit.name,
             description = habit.description,
             minutesTotal = habit.minutesTotal,
+            archived = habit.archived,
+            archivedAt = habit.archivedAt,
             createdAt = habit.createdAt!!
         )
     }

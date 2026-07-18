@@ -10,5 +10,7 @@ data class HabitResponse(
     val name: String,
     val description: String?,
     val minutesTotal: Int,
+    val archived: Boolean,
+    val archivedAt: LocalDateTime?,
     val createdAt: LocalDateTime
 )

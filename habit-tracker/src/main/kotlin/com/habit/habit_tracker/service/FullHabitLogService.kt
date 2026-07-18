@@ -35,10 +35,17 @@ class FullHabitLogService(
                 weekEnd
             )
 
+
         val dailyByHabit = dailyLogs.groupBy { it.habit.id!! }
         val weeklyByHabit = weeklyLogs.associateBy { it.habit.id!! }
 
-        return habits.map { habit ->
+        val visibleHabits = habits.filter { habit ->
+            !habit.archived ||
+                    habit.id in weeklyByHabit ||
+                    habit.id in dailyByHabit
+        }
+
+        return visibleHabits.map { habit ->
             FullHabitLogsForWeekMapper.toFullHabitLogsForWeek(
                 dailyByHabit[habit.id] ?: emptyList(),
                 weeklyByHabit[habit.id],

@@ -32,6 +32,12 @@ data class Habit(
     @field:Min(0)
     var minutesTotal: Int = 0,
 
+    @Column(name = "archived", nullable = false)
+    var archived: Boolean = false,
+
+    @Column(name = "archived_at")
+    var archivedAt: LocalDateTime? = null,
+
     @Column(name = "created_at", updatable = false, nullable = false)
     var createdAt: LocalDateTime? = null
 ) {

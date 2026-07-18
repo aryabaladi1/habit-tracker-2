@@ -31,6 +31,25 @@ class HabitController(private val habitService: HabitService) {
         return ResponseEntity.ok(response)
     }
 
+    @PatchMapping("/{habitId}/archive")
+    fun archiveHabit(@PathVariable habitId: Long): ResponseEntity<HabitResponse> {
+        val habit = habitService.archiveHabit(habitId)
+        val response = HabitMapper.toHabitResponse(habit)
+        return ResponseEntity.ok(response)
+    }
+
+    @PatchMapping("/{habitId}/unarchive")
+    fun unarchiveHabit(
+        @PathVariable habitId: Long
+    ): ResponseEntity<HabitResponse> {
+
+        val habit = habitService.unarchiveHabit(habitId)
+
+        return ResponseEntity.ok(
+            HabitMapper.toHabitResponse(habit)
+        )
+    }
+
     @GetMapping("/{habitId}")
     fun getHabit(@PathVariable habitId: Long): ResponseEntity<HabitResponse> {
         val habit = habitService.getHabit(habitId)

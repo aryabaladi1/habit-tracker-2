@@ -13,6 +13,7 @@ import com.habit.habit_tracker.exception.ApiRequestException
 import com.habit.habit_tracker.repository.HabitRepository
 import com.habit.habit_tracker.repository.UserRepository
 import com.habit.habit_tracker.security.AuthUtil
+import java.time.LocalDateTime
 
 
 @Service
@@ -57,7 +58,33 @@ class HabitService(
         return if (updated) habitRepository.save(habit) else habit
     }
 
-    fun getHabit(habitId: Long): Habit {
+    fun archiveHabit(habitId: Long) : Habit {
+        val user = authUtil.getAuthenticatedUser()
+        val habit = habitRepository.findByIdAndUserId(habitId, user.id!!)
+            .orElseThrow { ApiRequestException(HABIT_NOT_FOUND, HttpStatus.NOT_FOUND)}
+
+        if (!habit.archived) {
+            habit.archived = true
+            habit.archivedAt = LocalDateTime.now()
+        }
+
+        return habitRepository.save(habit)
+    }
+
+    fun unarchiveHabit(habitId: Long) : Habit {
+        val user = authUtil.getAuthenticatedUser()
+        val habit = habitRepository.findByIdAndUserId(habitId, user.id!!)
+            .orElseThrow { ApiRequestException(HABIT_NOT_FOUND, HttpStatus.NOT_FOUND)}
+
+        if (habit.archived) {
+            habit.archived = false
+            habit.archivedAt = null
+        }
+
+        return habitRepository.save(habit)
+    }
+
+    fun getHabit(habitId    : Long): Habit {
         val user = authUtil.getAuthenticatedUser()
         return habitRepository.findByIdAndUserId(habitId, user.id!!)
             .orElseThrow { ApiRequestException(HABIT_NOT_FOUND, HttpStatus.NOT_FOUND)}
