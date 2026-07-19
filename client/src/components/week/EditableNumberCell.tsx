@@ -209,19 +209,6 @@ export default function EditableNumberCell({
                 }}
             />
         );
-    
-        return (
-    
-            <input
-                ref={inputRef}
-                className="editable-number-input"
-                value={draft}
-                onChange={(e) => setDraft(e.target.value)}
-                onBlur={save}
-            />
-    
-        );
-    
     }
 
     return (
