@@ -1,52 +1,121 @@
 import type { HabitResponse } from "../../types/dto/response/HabitResponse";
-import { Pencil, Archive } from "lucide-react";
+import {
+  formatHabitTime,
+  formatRelativeDate,
+  type TimeDisplayMode,
+} from "../../utils/time";
+
+import { useState } from "react";
+import { MoreVertical, Pencil, Archive, ArchiveRestore } from "lucide-react";
 
 import "../../styles/habit/HabitCard.css";
-import { minutesToTime } from "../../utils/time";
+import { capitalizeFirstLetter } from "../../utils/text";
 
 interface HabitCardProps {
-    habit: HabitResponse;
+  habit: HabitResponse;
 
-    onEdit?: (habit: HabitResponse) => void;
-    onArchive?: (habit: HabitResponse) => void;
+  menuOpen: boolean;
+
+  onMenuToggle: (id: number) => void;
+
+  onMenuClose: () => void;
+
+  onEdit?: (habit: HabitResponse) => void;
+  onArchive?: (habit: HabitResponse) => void;
+  onUnarchive?: (habit: HabitResponse) => void;
 }
 
 export default function HabitCard({
-    habit,
-    onEdit,
-    onArchive
+  habit,
+  menuOpen,
+  onMenuToggle,
+  onMenuClose,
+  onEdit,
+  onArchive,
+  onUnarchive,
 }: HabitCardProps) {
-    return (
-        <div className="habit-card">
+  const [timeMode, setTimeMode] = useState<TimeDisplayMode>("standard");
 
-            <div className="habit-card-top">
+  return (
+    <div className="habit-card" onMouseLeave={onMenuClose}>
+      <div className="habit-card-top">
+        <h2>{capitalizeFirstLetter(habit.name)}</h2>
 
-            <h2>{habit.name}</h2>
+        <div className="habit-menu-container">
+          <button
+            className="icon-button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onMenuToggle(habit.id);
+            }}
+          >
+            <MoreVertical size={18} />
+          </button>
 
-            <div className="habit-actions">
+          {menuOpen && (
+            <div className="habit-menu">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onMenuClose();
+                  onEdit?.(habit);
+                }}
+              >
+                <Pencil size={16} />
+                Edit
+              </button>
 
+              {!habit.archived ? (
                 <button
-                    className="icon-button"
-                    onClick={() => onEdit?.(habit)}
+                  className="danger"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onMenuClose();
+                    onArchive?.(habit);
+                  }}
                 >
-                    <Pencil size={18}/>
+                  <Archive size={16} />
+                  Archive
                 </button>
-
+              ) : (
                 <button
-                    className="icon-button danger"
-                    onClick={() => onArchive?.(habit)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onMenuClose();
+                    onUnarchive?.(habit);
+                  }}
                 >
-                    <Archive size={18}/>
+                  <ArchiveRestore size={16} />
+                  Unarchive
                 </button>
-
+              )}
             </div>
-
-            </div>
-
-            <div className="habit-time">
-            {minutesToTime(habit.minutesTotal)}
-            </div>
-
+          )}
         </div>
-    );
+      </div>
+
+      <div className="habit-card-content">
+        <p className="habit-description">
+          {habit.description || "No description."}
+        </p>
+      </div>
+
+      <div className="habit-footer">
+        <div className="habit-meta">{formatRelativeDate(habit.createdAt)}</div>
+
+        <div
+          className="habit-time"
+          onClick={() => {
+            setTimeMode((prev) => {
+              if (prev === "standard") return "hours";
+              if (prev === "hours") return "minutes";
+              return "standard";
+            });
+          }}
+        >
+          {formatHabitTime(habit.minutesTotal, timeMode)}
+        </div>
+      </div>
+    </div>
+  );
 }

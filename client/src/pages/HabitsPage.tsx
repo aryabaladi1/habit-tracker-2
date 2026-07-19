@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 
-import { createHabit, getAllHabits, updateHabit, archiveHabit } from "../api/habitService";
+import {
+  createHabit,
+  getAllHabits,
+  updateHabit,
+  archiveHabit,
+  unarchiveHabit,
+} from "../api/habitService";
 
 import type { HabitResponse } from "../types/dto/response/HabitResponse";
-
 import { AxiosError } from "axios";
 
 import HabitCard from "../components/habit/HabitCard";
@@ -15,7 +20,6 @@ import { HabitCreateRequest } from "../types/dto/request/HabitCreateRequest";
 import HabitModal from "../components/habit/HabitModal";
 
 export default function HabitsPage() {
-
   const [habits, setHabits] = useState<HabitResponse[]>([]);
 
   const [showModal, setShowModal] = useState(false);
@@ -25,9 +29,9 @@ export default function HabitsPage() {
   const [saving, setSaving] = useState(false);
 
   const [error, setError] = useState("");
-  const [fieldErrors, setFieldErrors] = useState<
-    Record<string, string>
-  >({});
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+
+  const [openMenuId, setOpenMenuId] = useState<number | null>(null);
 
   useEffect(() => {
     fetchHabits();
@@ -45,138 +49,105 @@ export default function HabitsPage() {
     }
   }
 
-  async function handleSaveHabit(
-    request: HabitCreateRequest
-) {
-
+  async function handleSaveHabit(request: HabitCreateRequest) {
     setError("");
     setFieldErrors({});
 
     try {
+      setSaving(true);
 
-        setSaving(true);
+      if (editingHabit) {
+        const updated = await updateHabit(editingHabit.id, request);
 
-        if (editingHabit) {
+        setHabits((prev) =>
+          prev.map((h) => (h.id === updated.id ? updated : h))
+        );
+      } else {
+        const created = await createHabit(request);
 
-            const updated = await updateHabit(
-                editingHabit.id,
-                request
-            );
+        setHabits((prev) => [created, ...prev]);
+      }
 
-            setHabits(prev =>
-                prev.map(h =>
-                    h.id === updated.id
-                        ? updated
-                        : h
-                )
-            );
-
-        } else {
-
-            const created =
-                await createHabit(request);
-
-            setHabits(prev => [
-                created,
-                ...prev,
-            ]);
-
-        }
-
-        setShowModal(false);
-        setEditingHabit(null);
-
+      setShowModal(false);
+      setEditingHabit(null);
     } catch (err) {
+      const error = err as AxiosError<ApiErrorResponse>;
 
-        const error =
-            err as AxiosError<ApiErrorResponse>;
+      const data = error.response?.data;
 
-        const data =
-            error.response?.data;
+      if (!data) {
+        setError("Failed to save habit.");
+        return;
+      }
 
-        if (!data) {
-            setError("Failed to save habit.");
-            return;
-        }
-
-        if (
-            data.errors &&
-            Object.keys(data.errors).length > 0
-        ) {
-
-            setFieldErrors(data.errors);
-
-        } else {
-
-            setError(data.message);
-
-        }
-
+      if (data.errors && Object.keys(data.errors).length > 0) {
+        setFieldErrors(data.errors);
+      } else {
+        setError(data.message);
+      }
     } finally {
-
-        setSaving(false);
-
+      setSaving(false);
     }
-
   }
 
-  async function handleArchiveHabit(
-    habit: HabitResponse
-) {
-
+  async function handleArchiveHabit(habit: HabitResponse) {
     try {
+      const archived = await archiveHabit(habit.id);
 
-        const archived =
-            await archiveHabit(habit.id);
-
-        setHabits(prev =>
-            prev.map(h =>
-                h.id === archived.id
-                    ? archived
-                    : h
-            )
-        );
-
+      setHabits((prev) =>
+        prev.map((h) => (h.id === archived.id ? archived : h))
+      );
     } catch {
-
-        setError(
-            "Failed to archive habit."
-        );
-
+      setError("Failed to archive habit.");
     }
-
   }
+
+  async function handleUnarchiveHabit(habit: HabitResponse) {
+    try {
+      const updated = await unarchiveHabit(habit.id);
+
+      setHabits((prev) => prev.map((h) => (h.id === updated.id ? updated : h)));
+    } catch {
+      setError("Failed to unarchive habit.");
+    }
+  }
+
+  function handleMenuToggle(id: number) {
+    setOpenMenuId((prev) => (prev === id ? null : id));
+  }
+
+  function handleMenuClose() {
+    setOpenMenuId(null);
+  }
+
+  const activeHabits = habits.filter((habit) => !habit.archived);
+
+  const archivedHabits = habits.filter((habit) => habit.archived);
 
   return (
     <div className="habits-container">
-
       <div className="habits-content">
-
         <div className="habits-header">
-
           <div>
-              <h1>Your Habits</h1>
+            <h1>Your Habits</h1>
 
-              <p>
-                  Build consistency through weekly progress.
-              </p>
+            <p>Build consistency through weekly progress.</p>
           </div>
 
           <button
-              className="add-habit-button"
-              onClick={() => {
-                setEditingHabit(null);
-            
-                setFieldErrors({});
-                setError("");
-            
-                setShowModal(true);
-              }}
-          >
-              +
-          </button>
+            className="add-habit-button"
+            onClick={() => {
+              setEditingHabit(null);
 
-      </div>
+              setFieldErrors({});
+              setError("");
+
+              setShowModal(true);
+            }}
+          >
+            +
+          </button>
+        </div>
 
         <HabitModal
           open={showModal}
@@ -185,42 +156,83 @@ export default function HabitsPage() {
           error={error}
           fieldErrors={fieldErrors}
           onClose={() => {
-              setShowModal(false);
-              setEditingHabit(null);
-              setError("");
-              setFieldErrors({});
+            setShowModal(false);
+            setEditingHabit(null);
+            setError("");
+            setFieldErrors({});
           }}
           onSave={handleSaveHabit}
         />
 
         {loading ? (
-          <p className="habits-loading">
-            Loading habits...
-          </p>
+          <p className="habits-loading">Loading habits...</p>
         ) : habits.length === 0 ? (
-          <p className="habits-empty">
-            No habits yet.
-          </p>
+          <p className="habits-empty">No habits yet.</p>
         ) : (
-          <div className="habits-grid">
-              {habits.map((habit) => (
-                  <HabitCard
-                    key={habit.id}
-                    habit={habit}
-                    onEdit={(habit) => {
+          <>
+            {activeHabits.length > 0 && (
+              <>
+                <h2 className="habit-section-title">Active Habits</h2>
+
+                <div className="habits-grid">
+                  {activeHabits.map((habit) => (
+                    <HabitCard
+                      key={habit.id}
+                      habit={habit}
+                      menuOpen={openMenuId === habit.id}
+                      onMenuToggle={handleMenuToggle}
+                      onMenuClose={handleMenuClose}
+                      onEdit={(habit) => {
                         setEditingHabit(habit);
-                
+
                         setFieldErrors({});
                         setError("");
-                
-                        setShowModal(true);
-                    }}
-                    onArchive={handleArchiveHabit}
-                  />
-              ))}
-          </div>
-        )}
 
+                        setShowModal(true);
+
+                        handleMenuClose();
+                      }}
+                      onArchive={handleArchiveHabit}
+                      onUnarchive={handleUnarchiveHabit}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+
+            {archivedHabits.length > 0 && (
+              <>
+                <h2 className="habit-section-title archived-title">
+                  Archived Habits
+                </h2>
+
+                <div className="habits-grid">
+                  {archivedHabits.map((habit) => (
+                    <HabitCard
+                      key={habit.id}
+                      habit={habit}
+                      menuOpen={openMenuId === habit.id}
+                      onMenuToggle={handleMenuToggle}
+                      onMenuClose={handleMenuClose}
+                      onEdit={(habit) => {
+                        setEditingHabit(habit);
+
+                        setFieldErrors({});
+                        setError("");
+
+                        setShowModal(true);
+
+                        handleMenuClose();
+                      }}
+                      onArchive={handleArchiveHabit}
+                      onUnarchive={handleUnarchiveHabit}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </>
+        )}
       </div>
     </div>
   );
