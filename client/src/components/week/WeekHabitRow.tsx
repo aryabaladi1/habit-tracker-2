@@ -17,10 +17,7 @@ interface WeekHabitRowProps {
     minutes: number
   ) => void;
 
-  onWeeklyGoalChange: (
-    habitId: number,
-    goal: number
-  ) => void;
+  onWeeklyGoalChange: (habitId: number, goal: number) => void;
 }
 
 export default function WeekHabitRow({
@@ -29,73 +26,53 @@ export default function WeekHabitRow({
   onDailyMinutesChange,
   onWeeklyGoalChange,
 }: WeekHabitRowProps) {
-
   const weeklyLog = habitData.weeklyHabitLog;
 
   function getWeeklyImbalanceClass() {
     const imbalance = weeklyLog?.weeklyImbalance ?? 0;
-  
+
     if (imbalance > 0) return "positive";
     if (imbalance < 0) return "negative";
-  
+
     return "";
   }
 
   return (
     <tr className="week-habit-row">
-
-      <td className="habit-name">
-        {habitData.habit.name}
-      </td>
+      <td className="habit-name">{habitData.habit.name}</td>
 
       <td>
-
-      <EditableNumberCell
+        <EditableNumberCell
           mode="time"
           value={weeklyLog?.weeklyGoal}
-          onSave={(goal) =>
-              onWeeklyGoalChange(
-                  habitData.habit.id,
-                  goal
-              )
-          }
-      />
-
+          onSave={(goal) => onWeeklyGoalChange(habitData.habit.id, goal)}
+        />
       </td>
 
       {dates.map((date) => {
+        const dateString = formatLocalDate(date);
 
-        const dateString =
-          formatLocalDate(date)
-
-        const log =
-          habitData.dailyHabitLogs.find(
-            (d) => d.date === dateString
-          );
+        const log = habitData.dailyHabitLogs.find((d) => d.date === dateString);
 
         return (
           <DayCell
-              key={dateString}
-              habitId={habitData.habit.id}
-              date={dateString}
-              dailyLog={log}
-              dailyGoal={weeklyLog?.dailyGoal}
-              onMinutesChange={onDailyMinutesChange}
+            key={dateString}
+            habitId={habitData.habit.id}
+            date={dateString}
+            dailyLog={log}
+            dailyGoal={weeklyLog?.dailyGoal}
+            onMinutesChange={onDailyMinutesChange}
           />
         );
-
       })}
 
       <td className="total-cell">
         {minutesToTime(weeklyLog?.minutesDone ?? 0)}
       </td>
 
-      <td
-        className={getWeeklyImbalanceClass()}
-      >
+      <td className={getWeeklyImbalanceClass()}>
         {minutesToTime(weeklyLog?.weeklyImbalance ?? 0, { includeSign: true })}
       </td>
-
     </tr>
   );
 }

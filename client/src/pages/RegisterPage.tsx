@@ -1,8 +1,8 @@
-import { useState } from "react"
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../api/authService"
-import { useAuth } from "../context/AuthContext"
-import RegisterView from "../components/register/RegisterView"
+import { registerUser } from "../api/authService";
+import { useAuth } from "../context/AuthContext";
+import RegisterView from "../components/register/RegisterView";
 import { AxiosError } from "axios";
 import type { ApiErrorResponse } from "../types/dto/ApiErrorResponse";
 
@@ -41,21 +41,19 @@ export default function RegisterPage() {
       login(res.token);
       navigate("/dashboard");
     } catch (err) {
-
       const error = err as AxiosError<ApiErrorResponse>;
       const data = error.response?.data;
-    
+
       if (!data) {
         setError("Registration failed");
         return;
       }
-    
+
       if (data.errors && Object.keys(data.errors).length > 0) {
         setError(Object.values(data.errors).join(", "));
       } else {
         setError(data.message);
       }
-    
     } finally {
       setLoading(false);
     }
@@ -63,13 +61,13 @@ export default function RegisterPage() {
 
   return (
     <RegisterView
-    username={username}
-    password={password}
-    error={error}
-    loading={loading}
-    setUsername={setUsername}
-    setPassword={setPassword}
-    handleSubmit={handleSubmit}
-  />
+      username={username}
+      password={password}
+      error={error}
+      loading={loading}
+      setUsername={setUsername}
+      setPassword={setPassword}
+      handleSubmit={handleSubmit}
+    />
   );
 }

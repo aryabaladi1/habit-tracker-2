@@ -1,4 +1,3 @@
-// src/types/task/TaskResponse.ts
 import { TaskDifficulty } from "../../enums/TaskDifficulty";
 import { TaskStatus } from "../../enums/TaskStatus";
 

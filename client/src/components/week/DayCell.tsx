@@ -12,11 +12,7 @@ interface DayCellProps {
 
   dailyGoal?: number | null;
 
-  onMinutesChange: (
-    habitId: number,
-    date: string,
-    minutes: number
-  ) => void;
+  onMinutesChange: (habitId: number, date: string, minutes: number) => void;
 }
 
 export default function DayCell({
@@ -26,16 +22,15 @@ export default function DayCell({
   dailyGoal,
   onMinutesChange,
 }: DayCellProps) {
-
   const minutes = dailyLog?.minutesDone ?? 0;
 
   function getProgressClass() {
     if (!dailyGoal || dailyGoal <= 0) {
       return "";
     }
-  
+
     const ratio = minutes / dailyGoal;
-  
+
     if (ratio === 0) return "progress-0";
     if (ratio < 0.5) return "progress-1";
     if (ratio < 1) return "progress-2";
@@ -45,18 +40,11 @@ export default function DayCell({
 
   return (
     <td className={`day-cell`}>
-
       <div className={getProgressClass()}>
         <EditableNumberCell
-            mode="time"
-            value={dailyLog?.minutesDone}
-            onSave={(minutes) =>
-                onMinutesChange(
-                    habitId,
-                    date,
-                    minutes
-                ) 
-            }
+          mode="time"
+          value={dailyLog?.minutesDone}
+          onSave={(minutes) => onMinutesChange(habitId, date, minutes)}
         />
       </div>
     </td>

@@ -3,9 +3,7 @@ import "../../styles/weeks/WeekTableSkeleton.css";
 export default function WeekTableSkeleton() {
   return (
     <div className="week-table-container">
-
       <table className="week-table">
-
         <thead>
           <tr>
             <th>Habit</th>
@@ -22,13 +20,9 @@ export default function WeekTableSkeleton() {
           </tr>
         </thead>
 
-
         <tbody>
-
           {Array.from({ length: 5 }).map((_, row) => (
-
             <tr key={row}>
-
               <td>
                 <div className="skeleton skeleton-habit" />
               </td>
@@ -37,14 +31,12 @@ export default function WeekTableSkeleton() {
                 <div className="skeleton skeleton-small" />
               </td>
 
-
               {Array.from({ length: 7 }).map((_, col) => (
                 <td key={col}>
                   <div className="skeleton skeleton-cell" />
                 </td>
               ))}
 
-
               <td>
                 <div className="skeleton skeleton-small" />
               </td>
@@ -52,15 +44,10 @@ export default function WeekTableSkeleton() {
               <td>
                 <div className="skeleton skeleton-small" />
               </td>
-
             </tr>
-
           ))}
-
         </tbody>
-
       </table>
-
     </div>
   );
 }

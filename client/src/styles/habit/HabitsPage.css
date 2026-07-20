@@ -1,96 +1,92 @@
 .habits-container {
-min-height: 100vh;
+  min-height: 100vh;
 
-background: #000000;
-color: #f2f2f2;
+  background: #000000;
+  color: #f2f2f2;
 
-padding: 110px;
+  padding: 110px;
 
-font-family: "Inter", system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
 }
 
 .habits-content {
-max-width: 1100px;
-margin: 0 auto;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .habits-header {
-margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .habits-header h1 {
-font-size: 2rem;
-margin-bottom: 0.5rem;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .habits-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .add-habit-button {
-    width: 48px;
-    height: 48px;
+  width: 48px;
+  height: 48px;
 
-    border: none;
-    border-radius: 50%;
+  border: none;
+  border-radius: 50%;
 
-    font-size: 2rem;
-    line-height: 1;
+  font-size: 2rem;
+  line-height: 1;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    transition:
-        transform .15s,
-        background .2s;
+  transition: transform 0.15s, background 0.2s;
 }
 
 .add-habit-button:hover {
-    background: #2563eb;
-    transform: scale(1.08);
-}   
+  background: #2563eb;
+  transform: scale(1.08);
+}
 .habits-loading,
 .habits-empty {
-color: #9ca3af;
+  color: #9ca3af;
 }
 
 .habits-grid {
-display: grid;
+  display: grid;
 
-grid-template-columns:
-    repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 
-gap: 1rem;
+  gap: 1rem;
 }
 
 .field-error {
-    color: #ef4444;
-    
-    font-size: 0.9rem;
-    
-    margin-top: -0.5rem;
-    }
-    
-    .input-error {
-    border-color: #ef4444 !important;
-    
-    box-shadow:
-      0 0 6px rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+
+  font-size: 0.9rem;
+
+  margin-top: -0.5rem;
+}
+
+.input-error {
+  border-color: #ef4444 !important;
+
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.3);
 }
 
 .habit-section-title {
-    margin: 2rem 0 1rem;
+  margin: 2rem 0 1rem;
 
-    font-size: 1.3rem;
+  font-size: 1.3rem;
 
-    color: white;
+  color: white;
 }
 
 .archived-title {
-    margin-top: 3rem;
+  margin-top: 3rem;
 
-    color: #9ca3af;
+  color: #9ca3af;
 }

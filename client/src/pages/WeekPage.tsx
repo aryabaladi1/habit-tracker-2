@@ -2,19 +2,22 @@ import { useEffect, useState } from "react";
 
 import WeekHeader from "../components/week/WeekHeader";
 import WeekTable from "../components/week/WeekTable";
-
 import WeekTableSkeleton from "../components/week/WeekTableSkeleton";
-
 import {
   getFullHabitLogsForWeek,
   saveDailyHabitLog,
   updateWeeklyGoal,
 } from "../api/habitLogService";
-
 import type { FullHabitLogsForWeek } from "../types/dto/response/FullHabitLogsForWeek";
-
 import "../styles/weeks/WeekPage.css";
-import { formatLocalDate, getMonday, getWeekDates, getISOWeek, getMondayOfISOWeek, getISOYear } from "../utils/date";
+import {
+  formatLocalDate,
+  getMonday,
+  getWeekDates,
+  getISOWeek,
+  getMondayOfISOWeek,
+  getISOYear,
+} from "../utils/date";
 
 export default function WeekPage() {
   const [weekData, setWeekData] = useState<FullHabitLogsForWeek[]>([]);
@@ -34,16 +37,11 @@ export default function WeekPage() {
 
   async function loadWeek(initial = false) {
     try {
-      if (initial)
-        setLoadingInitial(true);
-      else
-        setRefreshing(true);
+      if (initial) setLoadingInitial(true);
+      else setRefreshing(true);
 
-      const data = await getFullHabitLogsForWeek(
-        weekStart,
-        weekEnd
-      );
-      
+      const data = await getFullHabitLogsForWeek(weekStart, weekEnd);
+
       setWeekData(data);
     } catch (err) {
       console.error(err);
@@ -76,17 +74,14 @@ export default function WeekPage() {
     }
   }
 
-  async function handleupdateWeeklyGoal(
-    habitId: number,
-    goal: number
-  ) {
+  async function handleupdateWeeklyGoal(habitId: number, goal: number) {
     try {
       await updateWeeklyGoal(habitId, {
         weekStart,
         weekEnd,
-        weeklyGoal: goal
+        weeklyGoal: goal,
       });
-  
+
       loadWeek();
     } catch (err) {
       console.error(err);
@@ -108,63 +103,46 @@ export default function WeekPage() {
 
   function showError(message: string) {
     setError(message);
-  
+
     setTimeout(() => {
       setError("");
     }, 4000);
   }
 
-  {loadingInitial ? (
+  {
+    loadingInitial ? (
       <WeekTableSkeleton />
-  ) : (
+    ) : (
       <WeekTable
-          habits={weekData}
-          dates={dates}
-          onDailyMinutesChange={handleDailyMinutesChange}
-          onWeeklyGoalChange={handleupdateWeeklyGoal}
+        habits={weekData}
+        dates={dates}
+        onDailyMinutesChange={handleDailyMinutesChange}
+        onWeeklyGoalChange={handleupdateWeeklyGoal}
       />
-  )}
+    );
+  }
 
   return (
     <div className="week-page">
-
-      {error && (
-        <div className="error-toast">
-          {error}
-        </div>
-      )}
+      {error && <div className="error-toast">{error}</div>}
 
       <WeekHeader
-          weekNumber={getISOWeek(currentMonday)}
-          startDate={dates[0]}
-          endDate={dates[6]}
-      
-          currentYear={getISOYear(currentDate)}
-          currentWeek={getISOWeek(currentDate)}
+        weekNumber={getISOWeek(currentMonday)}
+        startDate={dates[0]}
+        endDate={dates[6]}
+        currentYear={getISOYear(currentDate)}
+        currentWeek={getISOWeek(currentDate)}
+        displayedYear={getISOYear(currentMonday)}
+        displayedWeek={getISOWeek(currentMonday)}
+        showWeekSelector={showWeekSelector}
+        onOpenWeekSelector={() => setShowWeekSelector(true)}
+        onCloseWeekSelector={() => setShowWeekSelector(false)}
+        onPreviousWeek={previousWeek}
+        onNextWeek={nextWeek}
+        onWeekSelected={(year, week) => {
+          setCurrentMonday(getMondayOfISOWeek(year, week));
 
-          displayedYear={getISOYear(currentMonday)}
-          displayedWeek={getISOWeek(currentMonday)}
-
-          showWeekSelector={showWeekSelector}
-
-          onOpenWeekSelector={() =>
-              setShowWeekSelector(true)
-          }
-
-          onCloseWeekSelector={() =>
-              setShowWeekSelector(false)
-          }
-
-          onPreviousWeek={previousWeek}
-          onNextWeek={nextWeek}
-
-          onWeekSelected={(year, week) => {
-
-            setCurrentMonday(
-                getMondayOfISOWeek(year, week)
-            );
-        
-            setShowWeekSelector(false);
+          setShowWeekSelector(false);
         }}
       />
 
@@ -174,7 +152,6 @@ export default function WeekPage() {
         onDailyMinutesChange={handleDailyMinutesChange}
         onWeeklyGoalChange={handleupdateWeeklyGoal}
       />
-
     </div>
   );
 }

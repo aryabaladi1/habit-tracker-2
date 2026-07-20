@@ -71,130 +71,83 @@ export default function ProfilePage() {
 
       setSuccess("Profile updated successfully.");
     } catch (err) {
-
       const error = err as AxiosError<ApiErrorResponse>;
       const data = error.response?.data;
-  
+
       if (!data) {
         setError("Failed to update profile.");
         return;
       }
-  
+
       if (data.errors && Object.keys(data.errors).length > 0) {
         setError(Object.values(data.errors).join(", "));
       } else {
         setError(data.message);
       }
-  
     } finally {
       setSaving(false);
     }
   };
 
   if (loading) {
-    return (
-      <div className="profile-loading">
-        Loading profile...
-      </div>
-    );
+    return <div className="profile-loading">Loading profile...</div>;
   }
 
   return (
     <div className="profile-container">
-
       <div className="profile-card">
-
         <div className="profile-avatar">
           {firstName
             ? firstName.charAt(0).toUpperCase()
             : username.charAt(0).toUpperCase()}
         </div>
 
-        <h1 className="profile-title">
-          Your Profile
-        </h1>
+        <h1 className="profile-title">Your Profile</h1>
 
-        <p className="profile-subtitle">
-          Customize your account information.
-        </p>
+        <p className="profile-subtitle">Customize your account information.</p>
 
-        <form
-          onSubmit={handleSubmit}
-          className="profile-form"
-        >
-
-          <label>
-            Username
-          </label>
+        <form onSubmit={handleSubmit} className="profile-form">
+          <label>Username</label>
 
           <input
             type="text"
             value={username}
-            onChange={(e) =>
-              setUsername(e.target.value)
-            }
+            onChange={(e) => setUsername(e.target.value)}
           />
 
-          <label>
-            First Name
-          </label>
+          <label>First Name</label>
 
           <input
             type="text"
             value={firstName}
-            onChange={(e) =>
-              setFirstName(e.target.value)
-            }
+            onChange={(e) => setFirstName(e.target.value)}
           />
 
-          <label>
-            Last Name
-          </label>
+          <label>Last Name</label>
 
           <input
             type="text"
             value={lastName}
-            onChange={(e) =>
-              setLastName(e.target.value)
-            }
+            onChange={(e) => setLastName(e.target.value)}
           />
 
           <div className="profile-meta">
-            <p>
-              Created At:
-              {" "}
-              {new Date(user!.createdAt).toLocaleDateString()}
-            </p>
+            <p>Created At: {new Date(user!.createdAt).toLocaleDateString()}</p>
 
-            <p>
-              Last Login:
-              {" "}
-              {new Date(user!.lastLogin).toLocaleString()}
-            </p>
+            <p>Last Login: {new Date(user!.lastLogin).toLocaleString()}</p>
           </div>
 
-          {error && (
-            <p className="profile-error">
-              {error}
-            </p>
-          )}
+          {error && <p className="profile-error">{error}</p>}
 
-          {success && (
-            <p className="profile-success">
-              {success}
-            </p>
-          )}
+          {success && <p className="profile-success">{success}</p>}
 
           <button
             type="submit"
             disabled={saving}
             className="profile-save-button"
           >
-            {saving
-              ? "Saving..."
-              : "Save Changes"}
+            {saving ? "Saving..." : "Save Changes"}
           </button>
-
         </form>
       </div>
     </div>

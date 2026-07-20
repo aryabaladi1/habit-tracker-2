@@ -1,106 +1,103 @@
 .week-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 
-    margin-bottom: 32px;
+  margin-bottom: 32px;
 }
 
 .week-title-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
-    padding: 8px 14px;
+  padding: 8px 14px;
 
-    background: transparent;
-    border: none;
-    border-radius: 10px;
+  background: transparent;
+  border: none;
+  border-radius: 10px;
 
-    color: #57B9FF;
+  color: #57b9ff;
 
-    font-size: 2rem;
-    font-weight: 700;
-    font-family: inherit;
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: inherit;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    transition:
-        background .18s,
-        color .18s,
-        transform .18s;
+  transition: background 0.18s, color 0.18s, transform 0.18s;
 }
 
 .week-title-button:active {
-    transform: scale(.98);
+  transform: scale(0.98);
 }
 
 .week-title-button:focus-visible {
-    outline: 2px solid #57B9FF;
-    outline-offset: 4px;
+  outline: 2px solid #57b9ff;
+  outline-offset: 4px;
 }
 
 .week-title-chevron {
-    transition: transform .2s ease;
+  transition: transform 0.2s ease;
 }
 
 .week-title-chevron.open {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .week-navigation {
-    display: flex;
-    align-items: center;
-    gap: 40px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
 }
 
 .week-nav-button {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 
-    background: transparent;
-    border: none;
+  background: transparent;
+  border: none;
 
-    color: white;
+  color: white;
 
-    font-size: 1rem;
-    font-weight: 600;
+  font-size: 1rem;
+  font-weight: 600;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    transition: opacity 0.2s;
+  transition: opacity 0.2s;
 }
 
 .week-nav-button:hover {
-    color: #57B9FF;
-    transition: 0.2s ease;
+  color: #57b9ff;
+  transition: 0.2s ease;
 }
 
 .week-nav-button:first-child {
-    margin-left: -36px;
+  margin-left: -36px;
 }
 
 .week-date-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 180px;
 }
 
 .week-range {
-    color: #d4d4d4;
+  color: #d4d4d4;
 
-    font-size: 1.05rem;
-    font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: 600;
 }
 
 .week-year {
-    margin-top: 3px;
+  margin-top: 3px;
 
-    color: #d4d4d4;
+  color: #d4d4d4;
 
-    font-size: .9rem;
-    font-weight: 500;
+  font-size: 0.9rem;
+  font-weight: 500;
 }

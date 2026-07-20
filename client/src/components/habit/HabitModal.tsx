@@ -5,158 +5,107 @@ import { HabitCreateRequest } from "../../types/dto/request/HabitCreateRequest";
 import { HabitResponse } from "../../types/dto/response/HabitResponse";
 
 interface HabitModalProps {
-    open: boolean;
+  open: boolean;
 
-    habit?: HabitResponse;
+  habit?: HabitResponse;
 
-    saving: boolean;
+  saving: boolean;
 
-    error: string;
+  error: string;
 
-    fieldErrors: Record<string, string>;
+  fieldErrors: Record<string, string>;
 
-    onClose: () => void;
+  onClose: () => void;
 
-    onSave: (
-        request: HabitCreateRequest
-    ) => Promise<void>;
+  onSave: (request: HabitCreateRequest) => Promise<void>;
 }
 
 export default function HabitModal({
-    open,
-    habit,
-    saving,
-    error,
-    fieldErrors,
-    onClose,
-    onSave,
+  open,
+  habit,
+  saving,
+  error,
+  fieldErrors,
+  onClose,
+  onSave,
 }: HabitModalProps) {
-    const editing = habit !== undefined;
+  const editing = habit !== undefined;
 
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
-    useEffect(() => {
-        if (!open) {
-            return;
-        }
-    
-        setName(habit?.name ?? "");
-        setDescription(habit?.description ?? "");
-    }, [habit, open]);
-
+  useEffect(() => {
     if (!open) {
-        return null;
+      return;
     }
 
-    async function handleSubmit(
-        e: React.FormEvent
-    ) {
-        e.preventDefault();
+    setName(habit?.name ?? "");
+    setDescription(habit?.description ?? "");
+  }, [habit, open]);
 
-        await onSave({
-            name,
-            description,
-        });
-    }
+  if (!open) {
+    return null;
+  }
 
-    return (
-        <div
-            className="habit-modal-overlay"
-            onClick={onClose}
-        >
-            <div
-                className="habit-modal"
-                onClick={(e) => e.stopPropagation()}
-            >
-                <h2>
-                    {editing ? "Edit Habit" : "Create Habit"}
-                </h2>
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
 
-                <form onSubmit={handleSubmit}>
+    await onSave({
+      name,
+      description,
+    });
+  }
 
-                    <div className="habit-form-group">
-                        <label>Name</label>
+  return (
+    <div className="habit-modal-overlay" onClick={onClose}>
+      <div className="habit-modal" onClick={(e) => e.stopPropagation()}>
+        <h2>{editing ? "Edit Habit" : "Create Habit"}</h2>
 
-                        <input
-                            type="text"
-                            placeholder="Read books"
-                            value={name}
-                            onChange={(e) =>
-                                setName(e.target.value)
-                            }
-                            className={
-                                fieldErrors.name
-                                    ? "input-error"
-                                    : ""
-                            }
-                        />
+        <form onSubmit={handleSubmit}>
+          <div className="habit-form-group">
+            <label>Name</label>
 
-                        {fieldErrors.name && (
-                            <p className="field-error">
-                                {fieldErrors.name}
-                            </p>
-                        )}
-                    </div>
+            <input
+              type="text"
+              placeholder="Read books"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className={fieldErrors.name ? "input-error" : ""}
+            />
 
-                    <div className="habit-form-group">
-                        <label>Description</label>
+            {fieldErrors.name && (
+              <p className="field-error">{fieldErrors.name}</p>
+            )}
+          </div>
 
-                        <textarea
-                            placeholder="Optional"
-                            value={description}
-                            onChange={(e) =>
-                                setDescription(
-                                    e.target.value
-                                )
-                            }
-                            className={
-                                fieldErrors.description
-                                    ? "input-error"
-                                    : ""
-                            }
-                        />
+          <div className="habit-form-group">
+            <label>Description</label>
 
-                        {fieldErrors.description && (
-                            <p className="field-error">
-                                {fieldErrors.description}
-                            </p>
-                        )}
-                    </div>
+            <textarea
+              placeholder="Optional"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className={fieldErrors.description ? "input-error" : ""}
+            />
 
-                    {error && (
-                        <p className="habit-error">
-                            {error}
-                        </p>
-                    )}
+            {fieldErrors.description && (
+              <p className="field-error">{fieldErrors.description}</p>
+            )}
+          </div>
 
-                    <div className="habit-modal-actions">
+          {error && <p className="habit-error">{error}</p>}
 
-                        <button
-                            type="button"
-                            className="cancel-button"
-                            onClick={onClose}
-                        >
-                            Cancel
-                        </button>
+          <div className="habit-modal-actions">
+            <button type="button" className="cancel-button" onClick={onClose}>
+              Cancel
+            </button>
 
-                        <button
-                            type="submit"
-                            className="create-button"
-                            disabled={saving}
-                        >
-                            {saving
-                                ? "Saving..."
-                                : editing
-                                    ? "Save"
-                                    : "Create"}
-                        </button>
-
-                    </div>
-
-                </form>
-
-            </div>
-        </div>
-    );
+            <button type="submit" className="create-button" disabled={saving}>
+              {saving ? "Saving..." : editing ? "Save" : "Create"}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }

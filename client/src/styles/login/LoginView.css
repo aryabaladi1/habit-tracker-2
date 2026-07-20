@@ -24,7 +24,11 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(circle at center, rgba(59, 130, 246, 0.15), transparent 70%);
+  background: radial-gradient(
+    circle at center,
+    rgba(59, 130, 246, 0.15),
+    transparent 70%
+  );
   z-index: -1;
 }
 

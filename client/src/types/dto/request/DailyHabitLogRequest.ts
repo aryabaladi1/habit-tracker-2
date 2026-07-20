@@ -1,4 +1,4 @@
 export interface DailyHabitLogRequest {
-    minutesDone?: number | null;
-    date: string;
+  minutesDone?: number | null;
+  date: string;
 }

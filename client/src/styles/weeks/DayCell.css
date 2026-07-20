@@ -1,30 +1,27 @@
 .day-cell {
-    transition:
-        background 250ms ease,
-        box-shadow 250ms ease,
-        transform 150ms ease;
+  transition: background 250ms ease, box-shadow 250ms ease, transform 150ms ease;
 
-    padding: 2px !important;
+  padding: 2px !important;
 }
 
 /* Progress colors */
 
 .progress-0 {
-    color: #ff6b6b; /* nothing */
+  color: #ff6b6b; /* nothing */
 }
 
 .progress-1 {
-    color: #ff8585; /* low */
+  color: #ff8585; /* low */
 }
 
 .progress-2 {
-    color: #9affbc; /* decent progress */
+  color: #9affbc; /* decent progress */
 }
 
 .progress-3 {
-    color: #63e891; /* goal reached */
+  color: #63e891; /* goal reached */
 }
 
 .progress-4 {
-    color: #49d17d; /* exceeded */
+  color: #49d17d; /* exceeded */
 }

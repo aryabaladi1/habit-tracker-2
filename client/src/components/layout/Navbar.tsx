@@ -7,36 +7,21 @@ import "../../styles/layout/Navbar.css";
 export default function Navbar() {
   return (
     <header className="navbar">
-
       <div className="navbar-logo">
         <Link to="/">
-          <img 
-            src={oakTree} 
-            alt="Oak tree"
-            className="navbar-logo-icon"
-          />
+          <img src={oakTree} alt="Oak tree" className="navbar-logo-icon" />
           <span>Eiki</span>
         </Link>
       </div>
 
       <nav className="navbar-links">
+        <NavLink to="/">Home</NavLink>
 
-        <NavLink to="/">
-          Home
-        </NavLink>
+        <NavLink to="/calendar">Calendar</NavLink>
 
-        <NavLink to="/calendar">
-          Calendar
-        </NavLink>
+        <NavLink to="/habits">Habits</NavLink>
 
-        <NavLink to="/habits">
-          Habits
-        </NavLink>
-
-        <NavLink to="/statistics">
-          Statistics
-        </NavLink>
-
+        <NavLink to="/statistics">Statistics</NavLink>
       </nav>
 
       <div className="navbar-user">
@@ -44,7 +29,6 @@ export default function Navbar() {
           <UserCircle2 size={30} />
         </NavLink>
       </div>
-
     </header>
   );
 }

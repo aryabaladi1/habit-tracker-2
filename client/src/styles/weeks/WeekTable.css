@@ -1,60 +1,60 @@
 .week-table-container {
-    width: 100%;
+  width: 100%;
 
-    overflow-x: auto;
+  overflow-x: auto;
 
-    border-radius: 18px;
+  border-radius: 18px;
 
-    background: #1d1d1d;
+  background: #1d1d1d;
 }
 
 .week-table {
-    width: 100%;
+  width: 100%;
 
-    border-collapse: collapse;
+  border-collapse: collapse;
 }
 
 .day-column {
-    width: 90px;
-    min-width: 90px;
-    max-width: 90px;
-    padding: 4px 2px;
+  width: 90px;
+  min-width: 90px;
+  max-width: 90px;
+  padding: 4px 2px;
 }
 
 .week-table th,
 .week-table td {
-    padding: 16px 2px;
+  padding: 16px 2px;
 
-    text-align: center;
+  text-align: center;
 
-    color: white;
+  color: white;
 }
 
 .week-table th {
-    font-size: 1rem;
-    font-weight: 700;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .week-table td {
-    font-size: 0.95rem;
+  font-size: 0.95rem;
 }
 
 .week-table tbody tr:hover {
-    background: rgba(255,255,255,0.015);
+  background: rgba(255, 255, 255, 0.015);
 }
 
 .week-table th.current-day-column {
-    color: #57B9FF;
+  color: #57b9ff;
 
-    border-bottom: 1px solid #57B9FF;
+  border-bottom: 1px solid #57b9ff;
 }
 
 .current-day-column,
 .current-day-cell {
-    background: rgba(87,185,255,.08);
+  background: rgba(87, 185, 255, 0.08);
 }
 
 .current-day-column {
-    color: #57B9FF;
-    font-weight: 700;
+  color: #57b9ff;
+  font-weight: 700;
 }

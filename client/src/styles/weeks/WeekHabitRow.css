@@ -1,37 +1,37 @@
 .week-habit-row td {
-    text-align: center;
+  text-align: center;
 
-    border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .week-habit-row td.positive {
-    color: #56d88c;
-    font-weight: 600;
+  color: #56d88c;
+  font-weight: 600;
 }
 
 .week-habit-row td.negative {
-    color: #ff7272;
-    font-weight: 600;
+  color: #ff7272;
+  font-weight: 600;
 }
 
 .habit-name {
-    text-align: left;
+  text-align: left;
 
-    font-weight: 600;
+  font-weight: 600;
 
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .total-cell {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .positive {
-    color: #49d17d;
-    font-weight: 600;
+  color: #49d17d;
+  font-weight: 600;
 }
 
 .negative {
-    color: #ff6b6b;
-    font-weight: 600;
+  color: #ff6b6b;
+  font-weight: 600;
 }

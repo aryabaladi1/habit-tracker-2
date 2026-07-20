@@ -1,154 +1,154 @@
 .habit-modal-overlay {
-    position: fixed;
-    inset: 0;
+  position: fixed;
+  inset: 0;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    background: rgba(0, 0, 0, .65);
-    backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
 
-    z-index: 1000;
+  z-index: 1000;
 }
 
 .habit-modal {
-    width: min(500px, 90vw);
+  width: min(500px, 90vw);
 
-    background: #1a1d23;
+  background: #1a1d23;
 
-    border: 1px solid #2b2f36;
-    border-radius: 18px;
+  border: 1px solid #2b2f36;
+  border-radius: 18px;
 
-    padding: 28px;
+  padding: 28px;
 
-    animation: modal-pop .18s ease;
+  animation: modal-pop 0.18s ease;
 }
 
 .habit-modal h2 {
-    margin: 0 0 24px;
+  margin: 0 0 24px;
 
-    color: white;
-    font-size: 1.6rem;
+  color: white;
+  font-size: 1.6rem;
 }
 
 .habit-modal form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 .habit-form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .habit-form-group label {
-    color: #d4d4d4;
-    font-size: .95rem;
-    font-weight: 600;
+  color: #d4d4d4;
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 
 .habit-form-group input,
 .habit-form-group textarea {
-    padding: 12px 14px;
+  padding: 12px 14px;
 
-    background: #111317;
+  background: #111317;
 
-    border: 1px solid #333;
-    border-radius: 10px;
+  border: 1px solid #333;
+  border-radius: 10px;
 
-    color: white;
-    font: inherit;
+  color: white;
+  font: inherit;
 
-    transition: border-color .2s;
+  transition: border-color 0.2s;
 }
 
 .habit-form-group textarea {
-    resize: vertical;
-    min-height: 110px;
+  resize: vertical;
+  min-height: 110px;
 }
 
 .habit-form-group input:focus,
 .habit-form-group textarea:focus {
-    outline: none;
+  outline: none;
 
-    border-color: #57B9FF;
+  border-color: #57b9ff;
 }
 
 .input-error {
-    border-color: #ef4444 !important;
+  border-color: #ef4444 !important;
 }
 
 .field-error {
-    margin: 0;
+  margin: 0;
 
-    color: #ef4444;
-    font-size: .85rem;
+  color: #ef4444;
+  font-size: 0.85rem;
 }
 
 .habit-error {
-    margin: 0;
+  margin: 0;
 
-    color: #ef4444;
-    font-size: .9rem;
+  color: #ef4444;
+  font-size: 0.9rem;
 }
 
 .habit-modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
 
-    margin-top: 8px;
+  margin-top: 8px;
 }
 
 .cancel-button,
 .create-button {
-    padding: 10px 18px;
+  padding: 10px 18px;
 
-    border: none;
-    border-radius: 10px;
+  border: none;
+  border-radius: 10px;
 
-    font: inherit;
-    font-weight: 600;
+  font: inherit;
+  font-weight: 600;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    transition: .2s ease;
+  transition: 0.2s ease;
 }
 
 .cancel-button {
-    background: #2b2f36;
-    color: white;
+  background: #2b2f36;
+  color: white;
 }
 
 .cancel-button:hover {
-    background: #3a4049;
+  background: #3a4049;
 }
 
 .create-button {
-    background: #57B9FF;
-    color: white;
+  background: #57b9ff;
+  color: white;
 }
 
 .create-button:hover:not(:disabled) {
-    background: #42aef8;
+  background: #42aef8;
 }
 
 .create-button:disabled {
-    opacity: .6;
-    cursor: not-allowed;
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 @keyframes modal-pop {
-    from {
-        opacity: 0;
-        transform: scale(.96);
-    }
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
 
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

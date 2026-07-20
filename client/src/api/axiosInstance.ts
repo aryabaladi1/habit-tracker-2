@@ -19,14 +19,15 @@ export const authApi: AxiosInstance = axios.create({
 api.interceptors.request.use(
   (config) => {
     try {
-      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+      const token =
+        typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
       if (config.url && config.url.includes("/v1/auth")) {
         return config;
       }
 
       console.log("TOKEN:", token);
-      
+
       if (token && config.headers) {
         config.headers["Authorization"] = `Bearer ${token}`;
       }

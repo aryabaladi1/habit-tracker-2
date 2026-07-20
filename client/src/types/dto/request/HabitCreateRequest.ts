@@ -1,4 +1,4 @@
 export interface HabitCreateRequest {
-    name: string;
-    description?: string | null;
+  name: string;
+  description?: string | null;
 }
